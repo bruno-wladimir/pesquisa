@@ -2,27 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
-// export default defineConfig({
-//   plugins: [react()],
-
-// })
 export default defineConfig({
-  plugins: [
-    react(),
-   
-  ],
-  build: {
-    lib: {
-      name: "core-package",
-      fileName: "index",
-    },
-    rollupOptions: {
-      external: ["react", "react-router", "react-router-dom", "react-redux"],
-      output: {
-        globals: {
-          react: "React",
-        },
-      },
-    },
-  },
-});
+  plugins: [react()],
+
+})
