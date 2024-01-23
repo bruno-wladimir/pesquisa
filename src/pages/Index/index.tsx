@@ -7,6 +7,9 @@ function Index() {
   
   return (
     <>
+    <div>
+<BarraNavegacao/>
+</div>
    <h1> Index </h1>
 
 
