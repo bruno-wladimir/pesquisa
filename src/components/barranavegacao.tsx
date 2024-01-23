@@ -94,11 +94,66 @@ function BarraNavegacao() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
+{/* 
+<Route path="/" element={<Index/>}>  </Route>
+
+<Route path="/sobre" element={<Sobre/>}>  </Route>
+<Route path="/dash" element={<Dash/>}>  </Route>
+<Route path="/pesquisa" element={<Pesquisa/>}>  </Route> */}
+
+              <MenuItem key="/sobre" onClick={handleCloseNavMenu}>
+              <Link to={'/sobre'} > 
+                  <Typography textAlign="center">sobre</Typography>
+                  </Link>
+                </MenuItem>
+
+                <MenuItem key="/index" onClick={handleCloseNavMenu}>
+              <Link to={'/'} > 
+                  <Typography textAlign="center">Index</Typography>
+                  </Link>
+                </MenuItem>
+
+                <MenuItem key="/dash" onClick={handleCloseNavMenu}>
+              <Link to={'/dash'} > 
+                  <Typography textAlign="center">Dash</Typography>
+                  </Link>
+                </MenuItem>
+
+
+                <MenuItem key="/pesquisa" onClick={handleCloseNavMenu}>
+              <Link to={'/pesquisa'} > 
+                  <Typography textAlign="center">Pesquisa</Typography>
+                  </Link>
+                </MenuItem>
+
+
+          {/* <Link to="/sobre">        
+              <Button
+                
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                Sobre
+              </Button>
+          </Link>
+        
+          <Link to="/dash">        
+              <Button
+                
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                Dashboard
+              </Button>
+          </Link> */}
+
+
+
+              {/* {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
-              ))}
+              ))} */}
             </Menu>
           </Box>
           <div className='w-1/2 h-auto'> 
@@ -123,25 +178,17 @@ function BarraNavegacao() {
             <img src='Opine.png' ></img>
           </Typography> */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          <Link to="/sobre">        
-              <Button
-                
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                Sobre
-              </Button>
-          </Link>
+          <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
         
-          <Link to="/dash">        
-              <Button
-                
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                Dashboard
-              </Button>
-          </Link>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
