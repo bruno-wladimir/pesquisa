@@ -1,4 +1,4 @@
-import  { BrowserRouter, Routes,Route } from "react-router-dom" ;
+import  { BrowserRouter, Routes,Route, HashRouter } from "react-router-dom" ;
 import Sobre from "./pages/Sobre";
 import Dash from "./pages/Dash";
 import Index from "../src/pages/Index";
@@ -11,7 +11,7 @@ function AppRoutes() {
 
         
 
-        <BrowserRouter>
+        <HashRouter>
         <Routes> 
         <Route path="/" element={<Index/>}>  </Route>
 
@@ -21,7 +21,7 @@ function AppRoutes() {
 
  
         </Routes>
-        </BrowserRouter>
+        </HashRouter>
     );
 }
 
