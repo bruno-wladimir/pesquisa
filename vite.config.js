@@ -9,11 +9,10 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [
     react(),
-    svgrPlugin(),
+   
   ],
   build: {
     lib: {
-      entry: resolve(__dirname, "src/lib/index.js"),
       name: "core-package",
       fileName: "index",
     },
