@@ -51,6 +51,15 @@ export default function menuitem() {
                   <Typography textAlign="center">Pesquisa</Typography>
                   </Link>
                 </MenuItem>
+
+
+                <MenuItem key="/index_lojista" onClick={handleCloseNavMenu}>
+                <Link to={'/index_lojista'} > 
+                  <Typography textAlign="center">Acesso Lojista</Typography>
+                  </Link>
+                </MenuItem>
+
+
                 </>
     )
 }

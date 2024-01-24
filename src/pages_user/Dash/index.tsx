@@ -18,12 +18,12 @@ function clique(){
 <div>
 <BarraNavegacao/>
 </div>
-<div className='p-4 flex items-center justify-center '>
+<div className='p-6 flex items-center justify-center '>
 <CardComponent/>
 </div>
     <div className='p-10'>
       <Link to={'/pesquisa'} > 
-       <Button variant="contained" onClick={clique} >Iniciar Pesquisa</Button>
+       <Button variant="contained" onClick={clique} >Quero Concorrer!</Button>
        </Link>
         </div>
     </>
