@@ -27,39 +27,52 @@ export default function menuitem() {
 
     return(
 <>
-<MenuItem key="/sobre" onClick={handleCloseNavMenu}>
+  
+{/* <MenuItem key="/sobre" onClick={handleCloseNavMenu}>
               <Link to={'/sobre'} > 
                   <Typography textAlign="center">sobre</Typography>
                   </Link>
-                </MenuItem>
+                </MenuItem> */}
 
-                <MenuItem key="/index" onClick={handleCloseNavMenu}>
+                {/* <MenuItem key="/index" onClick={handleCloseNavMenu}>
               <Link to={'/'} > 
                   <Typography textAlign="center">Index</Typography>
                   </Link>
-                </MenuItem>
+                </MenuItem> */}
 
-                <MenuItem key="/dash" onClick={handleCloseNavMenu}>
-              <Link to={'/dash'} > 
-                  <Typography textAlign="center">Dash</Typography>
+                <MenuItem key="/user-inicio" onClick={handleCloseNavMenu}>
+              <Link to={'/user-inicio'} > 
+                  <Typography textAlign="center">Inicio-USR</Typography>
                   </Link>
                 </MenuItem>
 
 
-                <MenuItem key="/pesquisa" onClick={handleCloseNavMenu}>
-              <Link to={'/pesquisa'} > 
-                  <Typography textAlign="center">Pesquisa</Typography>
+                <MenuItem key="/user-pesquisa" onClick={handleCloseNavMenu}>
+              <Link to={'/user-pesquisa'} > 
+                  <Typography textAlign="center">Pesquisa-USR</Typography>
                   </Link>
                 </MenuItem>
 
+{/* LOGISTA */}
 
-                <MenuItem key="/index_lojista" onClick={handleCloseNavMenu}>
-                <Link to={'/index_lojista'} > 
-                  <Typography textAlign="center">Acesso Lojista</Typography>
+                <MenuItem key="/lojista-enviopesquisa" onClick={handleCloseNavMenu}>
+                <Link to={'/lojista-enviopesquisa'} > 
+                  <Typography textAlign="center">Envio-LOJ</Typography>
                   </Link>
                 </MenuItem>
 
-
+            
+                <MenuItem key="/lojista-dash" onClick={handleCloseNavMenu}>
+                <Link to={'/lojista-dash'} > 
+                  <Typography textAlign="center">Dash </Typography>
+                  </Link>
+                </MenuItem>
+                <MenuItem key="/lojista-configuracao" onClick={handleCloseNavMenu}>
+                <Link to={'/lojista-configuracao'} > 
+                  <Typography textAlign="center">Config </Typography>
+                  </Link>
+                </MenuItem>
+                
                 </>
     )
 }

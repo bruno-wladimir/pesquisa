@@ -4,7 +4,7 @@ import BarraNavegacao from '../../components/barranavegacao'
 import CardComponent from '../../components/card';
 import React from 'react';
 import { Link } from 'react-router-dom';
-function Dash() {
+function PaginaEntradaUser() {
 
   const [count, setCount] = useState(206)
 
@@ -29,4 +29,4 @@ function clique(){
     </>
   )
 }
-export default Dash;
+export default PaginaEntradaUser;

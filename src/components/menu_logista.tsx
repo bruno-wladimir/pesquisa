@@ -29,9 +29,6 @@ const rows = [
 
 ];
 
-
-
-
 const actions = [
   { icon: <FileCopyIcon />, name: 'Copy' },
   { icon: <SaveIcon />, name: 'Save'},
@@ -157,7 +154,7 @@ export default function Menu_Logista() {
 
 
     </div>
-    <Link to={ '/form-logista'}> 
+    {/* <Link to={ '/form-logista'}> 
         <Box >
                 <div style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column' }}>
 
@@ -166,17 +163,11 @@ export default function Menu_Logista() {
         sx={{ position: 'absolute', bottom: 16, right: 16 }}
         icon={<SpeedDialIcon />}
       >
-        {/* {actions.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            tooltipTitle={action.name} 
-          />
-        ))} */}
+    
       </SpeedDial>
       </div> 
     </Box>
-    </Link>
+    </Link> */}
     </>
   );
 }
