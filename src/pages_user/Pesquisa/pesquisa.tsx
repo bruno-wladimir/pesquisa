@@ -120,9 +120,10 @@ function Pesquisa() {
   // pegar perguntas no db 
 
   async function get_dados_lojista() {
-
+const api_remota = "https://server-pesquisa.onrender.com/user/get_perguntas";
+const api_local = "http://localhost:3000/user/get_perguntas";
     // Enviando para a API usando Axios
-    const response = await axios.get('http://localhost:3000/user/get_perguntas', {
+    const response = await axios.get(api_remota, {
       headers: {
         'Content-Type': 'application/json'
       }
