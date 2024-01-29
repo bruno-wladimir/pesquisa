@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -16,13 +16,35 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Menu_item from './menuitem';
+
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
   export default function BarraNavegacao_() {
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  
+  
+    const [arquivo, setArquivo] = useState<string | null>(null);
+  
+    const savedArray = localStorage.getItem('vendedores');
+
+    useEffect(() => {
+      const savedArray = localStorage.getItem('vendedores');
+  
+    setArquivo(localStorage.getItem("logo"))
+      if (savedArray) {
+        try {
+        
+        }
+        catch {
+  
+        }
+      }
+  
+    }, []);
+
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -39,17 +61,15 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
     setAnchorElUser(null);
   };
 
-
-
     return(
       <>
-        <AppBar position="static">
+        {/* <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
         <Menu_item/>
 
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' },mr:1 }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -120,14 +140,31 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
           </Box>
         </Toolbar>
       </Container>
-    </AppBar>
-    </>
+    </AppBar> */}
+
     
-    );
-}
-      {/* <AppBar position="relative" >
-      <Container maxWidth="xl" className='bg-gray-900'>
+<div className="w-full">
+
+<AppBar position="static">
+      <Container maxWidth="xl">
         <Toolbar disableGutters>
+          <Box
+          
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            <div className='w-1/2 h-auto'> 
+          <img src='logo.png'></img>
+          </div>
+          </Box>
+
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -157,43 +194,60 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              <Menu_item/>
-
+                <Menu_item/>
             </Menu>
           </Box>
-          <div className='w-1/2 h-auto'> 
+          <Box
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+             <div className='w-1/2 h-auto'> 
           <img src='logo.png'></img>
           </div>
-
+          </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          <Menu
+          <Menu_item/>
+          </Box>
+
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src={arquivo?.toString()}sx={{ width: 50, height: 50 }} />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
               id="menu-appbar"
-              anchorEl={anchorElNav}
+              anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: 'top',
+                horizontal: 'right',
               }}
               keepMounted
               transformOrigin={{
                 vertical: 'top',
-                horizontal: 'left',
+                horizontal: 'right',
               }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
             >
-              <Menu_item/>
-
             </Menu>
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
-        </>
-    )
 
+</div>
+    </>
 
-} */}
-
+    );
+}
+      

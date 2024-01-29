@@ -22,7 +22,7 @@ function clique(){
 <CardComponent/>
 </div>
     <div className='p-10'>
-      <Link to={'/pesquisa'} > 
+      <Link to={'/user-pesquisa'} > 
        <Button variant="contained" onClick={clique} >Quero Concorrer!</Button>
        </Link>
         </div>
