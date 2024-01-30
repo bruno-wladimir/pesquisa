@@ -11,7 +11,8 @@ import { Link } from 'react-router-dom';
 import { AlignHorizontalCenter } from '@mui/icons-material'
 import axios from 'axios';
 
-
+//const URLAPI = "https://server-pesquisa.onrender.com";
+const URLAPI = "http://localhost:3000";
 
 // interface Perguntas {
 
@@ -21,8 +22,6 @@ import axios from 'axios';
 //     opcoes: string[];
 //   }[];
 // }
-
-
 
 function Pesquisa() {
 
@@ -104,7 +103,7 @@ function Pesquisa() {
     };
     console.log(dadosParaEnviar)
 
-    const resposta = await axios.post('http://localhost:3000/user/salvar_resposta', dadosParaEnviar);
+    const resposta = await axios.post(URLAPI+'/user/salvar_resposta', dadosParaEnviar);
 
         // Lide com a resposta da API, se necessário
         console.log('Resposta da API:', resposta.data);
@@ -120,10 +119,9 @@ function Pesquisa() {
   // pegar perguntas no db 
 
   async function get_dados_lojista() {
-const api_remota = "https://server-pesquisa.onrender.com/user/get_perguntas";
-const api_local = "http://localhost:3000/user/get_perguntas";
+
     // Enviando para a API usando Axios
-    const response = await axios.get(api_remota, {
+    const response = await axios.get(URLAPI, {
       headers: {
         'Content-Type': 'application/json'
       }

@@ -7,6 +7,9 @@ import Menu_Logista from '../../components/menu_logista'
 import { Button, FormLabel, TextField } from '@mui/material'
 import axios from 'axios';
 
+//const URLAPI = "https://server-pesquisa.onrender.com";
+const URLAPI = "http://localhost:3000";
+
 
 export default function EnvioPesquisa(){
 
@@ -25,7 +28,7 @@ export default function EnvioPesquisa(){
         console.log('Dados do formulário:', dadosFormulario);
 
 try {
-        const response =  axios.post('http://localhost:3000/send', { parametro1: dadosFormulario.nome, parametro2: dadosFormulario.telefone });
+        const response =  axios.post(URLAPI+'/send', { parametro1: dadosFormulario.nome, parametro2: dadosFormulario.telefone });
         //this.respostaMensagem = response.data.status;
     console.log("menasgem enviada"); 
     

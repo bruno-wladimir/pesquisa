@@ -5,8 +5,7 @@ import CardComponent from '../../components/card';
 import React from 'react';
 import { Link } from 'react-router-dom';
 function PaginaEntradaUser() {
-
-  const [count, setCount] = useState(206)
+const [count, setCount] = useState(206)
 
 function clique(){
 

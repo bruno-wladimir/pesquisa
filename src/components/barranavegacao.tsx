@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -16,6 +16,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Menu_item from './menuitem';
+import { signOut } from 'firebase/auth';
+import { auth } from '../services/firebaseConfig';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -60,7 +62,21 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  
+  function logout(){
+             
+    signOut(auth).then(() => {
+    // Sign-out successful.
+        <Navigate to="/"/>
+        console.log("Signed out successfully")
+        localStorage.setItem("on","0");
 
+    }).catch((error) => {
+    // An error happened.
+    });
+
+
+}
     return(
       <>
         {/* <AppBar position="static">
@@ -239,6 +255,13 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
+               <MenuItem key="" onClick={logout}>
+                Sair
+              {/* <Link to={'/user-inicio'} > 
+                  <Typography textAlign="center">Inicio-USR</Typography>
+                  </Link> */}
+                </MenuItem>
+              
             </Menu>
           </Box>
         </Toolbar>

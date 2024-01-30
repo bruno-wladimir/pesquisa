@@ -13,6 +13,8 @@ import { styled } from '@mui/material/styles';
 import { PermCameraMic } from '@mui/icons-material';
 import axios from 'axios';
 
+//const URLAPI = "https://server-pesquisa.onrender.com";
+const URLAPI = "http://localhost:3000";
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -221,7 +223,7 @@ async function enviarFormulario(informacaoes) {
   console.log(informacaoes)
 
   // Enviando para a API usando Axios
-    const response = await axios.post('http://localhost:3000/loja/salvar_dados_logista',informacaoes, {
+    const response = await axios.post(URLAPI+'/loja/salvar_dados_logista',informacaoes, {
       headers: {
         'Content-Type': 'application/json'
       }
@@ -238,7 +240,7 @@ async function enviarFormulario(informacaoes) {
 async function get_dados_lojista() {
 
   // Enviando para a API usando Axios
-    const response = await axios.get('http://localhost:3000/get_dados_lojista', {
+    const response = await axios.get(URLAPI+'/get_dados_lojista', {
       headers: {
         'Content-Type': 'application/json'
       }
