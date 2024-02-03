@@ -68,7 +68,7 @@ import { CheckRoute } from "./components/auth";
             <Routes>
 
 
-                <Route path="/" element={<Login />}>  </Route>
+            <Route path="/" element={<CheckRoute autenticado={authenticated} ><EnvioPesquisa /></CheckRoute>}/>
 
                 <Route path="/user-inicio" element={<CheckRoute autenticado={authenticated} ><PaginaEntradaUser /></CheckRoute>}/>
                 {/* <CheckRoute  admin={authenticated}><PaginaEntradaUser /></CheckRoute> */}

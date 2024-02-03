@@ -11,8 +11,8 @@ import { Link } from 'react-router-dom';
 import { AlignHorizontalCenter } from '@mui/icons-material'
 import axios from 'axios';
 
-//const URLAPI = "https://server-pesquisa.onrender.com";
-const URLAPI = "http://localhost:3000";
+const URLAPI = "https://server-pesquisa.onrender.com";
+//const URLAPI = "http://localhost:3000";
 
 // interface Perguntas {
 

@@ -10,14 +10,19 @@ import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import 'tailwindcss/tailwind.css';
 import { FormControl } from "@mui/material";
+import axios from "axios";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const theme = createTheme();
-
+//const URLAPI = "https://server-pesquisa.onrender.com";
+const URLAPI = "http://localhost:3000";
 export default function Login() {
   const history = useNavigate();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [vendedores, setVendedores] = useState([])
+  const [carregando, setCarregando] = useState(false);
 
   React.useEffect(() => {
 
@@ -40,14 +45,29 @@ export default function Login() {
 
   }
   function handleSignIn(e) {
-    console.log(email, password)
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         //const user = userCredential.user;
         console.log("logado");
-        history('/lojista-enviopesquisa');
+        const userEmail = userCredential.user.email;
+
+          if (userEmail !==null){
+            localStorage.setItem("email",userEmail)
+            
+          }
+        
         localStorage.setItem("on", "1");
+        getdadosloja();
+
+
+        setTimeout(() => {
+          // Redirecionar para outra página após 10 segundos
+
+          history('/lojista-enviopesquisa');
+        }, 3000); // 10000 milissegundos = 10 segundos
+
+
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -60,8 +80,38 @@ export default function Login() {
 
   }
 
+  async function  getdadosloja(){
+    const response = await axios.get(URLAPI + '/loja/get_dados_lojista', {
+      params: {
+
+        email: localStorage.getItem("email")
+
+      },
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+        console.log('Resposta da API:', response.data.loja.vendedores);
+    
+      
+        localStorage.setItem("vendedores",JSON.stringify(response.data.loja.vendedores))
+
+
+        
+      })
+      .catch(error => {
+        console.error('Erro ao enviar para a API:', error);
+      });
+    }
+
+
+  
   return (
+
+    
     <ThemeProvider theme={theme}>
+
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="max-w-md w-full p-4">
 
@@ -123,48 +173,6 @@ export default function Login() {
     </ThemeProvider>
 
 
-    // <div className="container">
-    //   <button onClick={logout}>Sair</button>
-    //   <header className="header">
-    //     <img src="arrow.svg" alt="Workflow" className="logoImg" />
-    //     <span>Por favor, digite suas informações de login</span>
-    //   </header>
-
-    //   <form>
-    //     <div className="inputContainer">
-    //       <label htmlFor="email">E-mail</label>
-    //       <input
-    //         type="text"
-    //         name="email"
-    //         id="email"
-    //         placeholder="johndoe@gmail.com"
-    //         onChange={(e) => setEmail(e.target.value)}
-    //       />
-    //     </div>
-
-    //     <div className="inputContainer">
-    //       <label htmlFor="password">Senha</label>
-    //       <input
-    //         type="password"
-    //         name="password"
-    //         id="password"
-    //         placeholder="********************"
-    //         onChange={(e) => setPassword(e.target.value)}
-    //       />
-    //     </div>
-
-    //     <a href="#">Esqueceu sua senha?</a>
-
-    //     <button className="button" onClick={handleSignIn}>
-    //       Entrar <img src="arrow.svg" alt="->" />
-    //     </button>
-
-    //     <div className="footer">
-    //       <p>Você não tem uma conta?</p>
-    //       <Link to="/register">Crie a sua conta aqui</Link>
-
-    //     </div>
-    //   </form>
-    // </div>
-  );
+        );
+  
 }

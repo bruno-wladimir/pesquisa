@@ -1,81 +1,152 @@
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import BarraNavegacao from '../../components/barranavegacao'
 import '../../App.css'
 import React from 'react'
 import Menu_Logista from '../../components/menu_logista'
-import { Button, FormLabel, TextField } from '@mui/material'
+import { Button, FormControl, FormLabel, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import axios from 'axios';
 
-//const URLAPI = "https://server-pesquisa.onrender.com";
-const URLAPI = "http://localhost:3000";
+const URLAPI = "https://server-pesquisa.onrender.com";
+//const URLAPI = "http://localhost:3000";
 
 
-export default function EnvioPesquisa(){
+export default function EnvioPesquisa() {
 
-    const [dadosFormulario, setDadosFormulario] = React.useState({
-        nome: '',
-        telefone: '',
-      });
-    
-      const handleChange = (campo) => (event) => {
-        setDadosFormulario({ ...dadosFormulario, [campo]: event.target.value });
-      };
-    
-      const handleSubmit = (event) => {
-        event.preventDefault();
-        // Lógica para lidar com os dados do formulário, por exemplo, enviar para um servidor
-        console.log('Dados do formulário:', dadosFormulario);
 
-try {
-        const response =  axios.post(URLAPI+'/send', { parametro1: dadosFormulario.nome, parametro2: dadosFormulario.telefone });
-        //this.respostaMensagem = response.data.status;
-    console.log("menasgem enviada"); 
-    
-    } catch (error) {
-        console.error('Erro ao enviar mensagem:', error);
+  const [nome_cliente, setCliente] = useState('')
+  const [telefone_cliente, setTelCliente] = useState('');
+  const [vendedor, setVendedor] = useState('');
+  const [vendedores, setVendedores] = useState([]);
+
+  const [loja, setIdLoja] = useState(localStorage.getItem("id"))
+
+
+  const [dadosFormulario, setDadosFormulario] = React.useState({
+    nome: '',
+    telefone: '',
+    vendedor: '',
+
+  });
+
+  useEffect(() => {
+
+    const savedArray = localStorage.getItem('vendedores');
+
+    if (savedArray) {
+      try {
+        setVendedores(JSON.parse(savedArray));
       }
+      catch {
+
+      }
+    }
+  }, []);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Lógica para lidar com os dados do formulário, por exemplo, enviar para um servidor
+
+    // Aqui você pode lidar com os dados do formulário, como enviá-los para um servidor
+    const dadosLoja = {
+      nome_cliente,
+      telefone_cliente,
+      vendedor,
+      loja,
+      email: localStorage.getItem("email")
+    }
+    //const dadosLojaJSON = JSON.stringify(dadosLoja);
+
+    // console.log('Dados do formulário:', dadosLojaJSON);
+    enviarLink(dadosLoja)
+
+  }
+
+  function clear() {
+    setCliente('');
+    setTelCliente('');
+    setVendedor('');
+
+  }
+  async function enviarLink(msg) {
+
+    await axios.post(URLAPI + '/loja/send', msg)
+      .then(response => {
+        alert(response.data.message)
+        clear();
+
+      })
+      .catch(error => {
+        alert(error)
+
+      });
+
+  }
+
+  return (
+    <>
+
+      <BarraNavegacao />
+      <div className='p-6' >
+
+        <form onSubmit={handleSubmit} className='p-10 '>
+
+          <FormControl fullWidth sx={{ my: 2 }}>
+            <TextField
+              label="Nome Cliente"
+              variant="outlined"
+              value={nome_cliente}
+              onChange={(e) => setCliente(e.target.value)}
+            />
+          </FormControl>
+          <FormControl fullWidth sx={{ my: 2 }}>
+            <TextField
+              label="Telefone "
+              variant="outlined"
+              value={telefone_cliente}
+              onChange={(e) => setTelCliente(e.target.value)}
+            />
+          </FormControl>
 
 
-      };
-    
-    
-return(
-<>
+          <FormControl fullWidth sx={{ my: 2 }}>
+            <InputLabel>Vendedor</InputLabel>
 
-<BarraNavegacao/>
-<div className='p-6' > 
+            <Select
 
-<form onSubmit={handleSubmit}>
-      <TextField
-        label="Nome"
-        variant="outlined"
-        fullWidth
-        value={dadosFormulario.nome}
-        onChange={handleChange('nome')}
-        margin="normal"
-      />
-      <TextField
-        label="Telefone"
-        variant="outlined"
-        fullWidth
-        value={dadosFormulario.telefone}
-        onChange={handleChange('telefone')}
-        margin="normal"
-      />
+              value={vendedor}
+              label="Age"
+              onChange={(e) => setVendedor(e.target.value)}
+            >
+              {vendedores.map((vendedor, index) => {
 
 
-      <Button type="submit">Enviar</Button>
-       
-       
+                return (
 
-  </form>
 
-</div>
+                  <MenuItem value={vendedor}>
 
-</>
+                    {vendedor}
 
-)
+                  </MenuItem>
+
+                )
+              })}
+
+            </Select>
+
+
+          </FormControl>
+          <Button type="submit">Enviar</Button>
+
+        </form>
+
+
+      </div>
+
+    </>
+
+  )
 
 
 }

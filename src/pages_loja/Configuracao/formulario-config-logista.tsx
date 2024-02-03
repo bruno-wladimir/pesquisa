@@ -12,9 +12,10 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import { PermCameraMic } from '@mui/icons-material';
 import axios from 'axios';
+import { auth } from "../../services/firebaseConfig";
 
-//const URLAPI = "https://server-pesquisa.onrender.com";
-const URLAPI = "http://localhost:3000";
+const URLAPI = "https://server-pesquisa.onrender.com";
+//const URLAPI = "http://localhost:3000";
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -29,28 +30,41 @@ const style = {
 
 
 export default function Formulario_Config_Logista() {
-  
+
   const [isBotaoVisivel, setBotaoVisivel] = useState(false);
 
-  const [category, setcategory] = useState([]);
 
-  const [vendedores, setVendedores] = useState([''])
   const [arquivo, setArquivo] = useState<string | null>(null);
 
   useEffect(() => {
 
-    const savedArray = localStorage.getItem('vendedores');
 
-  setArquivo(localStorage.getItem("logo"))
-    if (savedArray) {
-      try {
-        setVendedores(JSON.parse(savedArray));
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        console.log("use ", user.uid)
+        // setAuthenticated(true);
+
       }
-      catch {
+      else {
+        // localStorage.setItem("on","0");
 
       }
     }
+
+    )
+
+    //  const savedArray = localStorage.getItem('vendedores');
     get_dados_lojista();
+
+    setArquivo(localStorage.getItem("logo"))
+    // if (savedArray) {
+    //   try {
+    //     setVendedores(JSON.parse(savedArray));
+    //   }
+    //   catch {
+
+    //   }
+    // }
   }, []);
 
   const [novoNome, setNovoNome] = useState('');
@@ -58,35 +72,40 @@ export default function Formulario_Config_Logista() {
 
   const rootRef = React.useRef<HTMLDivElement>(null);
 
+  const [category, setcategory] = useState(['lojaDeRoupas', 'lojaDeCalcados', 'restaurante', 'lojaDeAcessorios']);
 
+  const [vendedores, setVendedores] = useState([''])
 
   const [nome_loja, setNomeLoja] = useState('');
   const [categoria, setCategoria] = useState('');
   const [cidade, setCidade] = useState('');
   const [telefone_loja, setTelLoja] = useState('');
-  const [atendimentovendedor, setAtendimentoVendedor] = useState(null);
-  const [organizacaoloja, setOrganizacaoloja] = useState(null);
-  const [values, setValues] = React.useState(0);
+
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+
 
 
   const [openmodal, setOpenconfirm] = React.useState(false);
 
 
   const handleSubmit = (event) => { // AQUI MANDA OS DADOS PARA API E SALVA NO DB .
+
     event.preventDefault();
     // Aqui você pode lidar com os dados do formulário, como enviá-los para um servidor
-     const dadosLoja = {
-    nome_loja,
-    cidade,
-    categoria,
-    telefone_loja,
-    vendedores
-  };
-  const dadosLojaJSON = JSON.stringify(dadosLoja);
-  enviarFormulario(dadosLojaJSON);
+    const dadosLoja = {
+      nome_loja,
+      cidade,
+      categoria,
+      telefone_loja,
+      vendedores,
+      email: localStorage.getItem("email")
+    };
+    const dadosLojaJSON = JSON.stringify(dadosLoja);
+    enviarFormulario(dadosLojaJSON);
   };
   const [isVisible, setIsVisible] = useState(false);
 
@@ -182,7 +201,7 @@ export default function Formulario_Config_Logista() {
         const result = e.target?.result;
         if (result) {
           console.log(result)
-        
+
           setArquivo(result.toString());
         }
       };
@@ -197,13 +216,13 @@ export default function Formulario_Config_Logista() {
 
   const handleVisualizarArquivo = () => {
 
-setIsVisible(false);
-if(arquivo){
-  localStorage.setItem("logo",arquivo?.toString())
- 
-   alert("Logo salva");
-   window.location.reload()
- }
+    setIsVisible(false);
+    if (arquivo) {
+      localStorage.setItem("logo", arquivo?.toString())
+
+      alert("Logo salva");
+      window.location.reload()
+    }
     // if (arquivo) {
     //   const reader = new FileReader();
     //   reader.onload = (event) => {
@@ -216,43 +235,57 @@ if(arquivo){
   };
 
 
-//funcoes API
+  //funcoes API
 
-// Função para enviar dados do formulário
-async function enviarFormulario(informacaoes) {
-  console.log(informacaoes)
+  // Função para enviar dados do formulário
+  async function enviarFormulario(informacaoes) {
+    console.log(informacaoes)
 
-  // Enviando para a API usando Axios
-    const response = await axios.post(URLAPI+'/loja/salvar_dados_logista',informacaoes, {
+    // Enviando para a API usando Axios
+    const response = await axios.post(URLAPI + '/loja/salvar_dados_logista', informacaoes, {
       headers: {
         'Content-Type': 'application/json'
       }
     })
-        .then(response => {
-      console.log('Resposta da API:', response.data);
-    })
-    .catch(error => {
-      console.error('Erro ao enviar para a API:', error);
-    });
-  
+      .then(response => {
+        alert('Resposta da API:' + response.data);
+
+
+      })
+      .catch(error => {
+        console.error('Erro ao enviar para a API:', error);
+      });
+
   }
-// Função para pegar dados na api
-async function get_dados_lojista() {
+  // Função para pegar dados na api
+  async function get_dados_lojista() {
+    // Enviando para a API usando Axios
+    const response = await axios.get(URLAPI + '/loja/get_dados_lojista', {
+      params: {
 
-  // Enviando para a API usando Axios
-    const response = await axios.get(URLAPI+'/get_dados_lojista', {
+        email: localStorage.getItem("email")
+
+      },
       headers: {
         'Content-Type': 'application/json'
       }
     })
-        .then(response => {
-      console.log('Resposta da API:', response.data);
-      setcategory(response.data.envio.categoria)
-    })
-    .catch(error => {
-      console.error('Erro ao enviar para a API:', error);
-    });
-  
+      .then(response => {
+        console.log('Resposta da API:', response.data.loja);
+        //setcategory(response.data.envio.categoria)''
+        setNomeLoja(response.data.loja.nome_loja);
+        setCategoria(response.data.loja.categoria);
+        setCidade(response.data.loja.cidade);
+        setTelLoja(response.data.loja.telefone_loja);
+        setVendedores(response.data.loja.vendedores)
+
+
+
+      })
+      .catch(error => {
+        console.error('Erro ao enviar para a API:', error);
+      });
+
   }
 
 
@@ -279,7 +312,7 @@ async function get_dados_lojista() {
             onChange={(e) => setTelLoja(e.target.value)}
           />
         </FormControl>
-          <FormControl fullWidth sx={{ my: 2 }}>
+        <FormControl fullWidth sx={{ my: 2 }}>
           <TextField
             label="Cidade"
             variant="outlined"
@@ -327,12 +360,12 @@ async function get_dados_lojista() {
       <input type="file" onChange={handleFileChange} />
       <button onClick={handleVisualizarArquivo}>Visualizar Arquivo</button>
     </div> */}
-            {arquivo && isVisible &&(
+            {arquivo && isVisible && (
               <div>
                 <img src={arquivo} className="w-500 h-500" alt="Uploaded Image" />
               </div>
             )}
-            </div>
+          </div>
           <Stack direction="row" spacing={2}>
 
           </Stack>

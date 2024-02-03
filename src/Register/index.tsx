@@ -7,6 +7,10 @@ import "./styles.css";
 import * as React from 'react';
 import { ThemeProvider } from "styled-components";
 import { Button, FormControl, TextField, createTheme } from "@mui/material";
+import axios from 'axios';
+
+const URLAPI = "https://server-pesquisa.onrender.com";
+//const URLAPI = "http://localhost:3000";
 
 export default function Register() {
   const history = useNavigate();
@@ -16,14 +20,18 @@ export default function Register() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+
 async function handleSignOut (e){
   e.preventDefault()
   await createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
       // Signed in
-      const user = userCredential.user;
-      console.log(user);
+   const user = userCredential.user;
+
+   createLoja(user.email);
+
   alert("Usuario Criado com Sucesso")
+
   history('/login');
 
   })
@@ -38,6 +46,23 @@ async function handleSignOut (e){
 
 }
 
+
+async function createLoja(email){
+  var email_send = {
+    email:email
+
+   }
+   await axios.post(URLAPI + '/loja/criarloja', email_send)
+    .then(response => {
+      alert('Resposta da API:' + response.data);
+
+
+    })
+    .catch(error => {
+      console.error('Erro ao enviar para a API:', error);
+    });
+  
+}
 
 
   return (

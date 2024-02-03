@@ -69,7 +69,8 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
     // Sign-out successful.
         <Navigate to="/"/>
         console.log("Signed out successfully")
-        localStorage.setItem("on","0");
+      //  localStorage.setItem("on","0");
+        localStorage.clear();
 
     }).catch((error) => {
     // An error happened.
