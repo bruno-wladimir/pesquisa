@@ -58,6 +58,8 @@ export default function Menu_Logista() {
 
 
     useEffect(() => {
+
+    console.log("effect logista");
         var media=0;
         var media_organizaçào=0;
           {rows.map((item, index) => (

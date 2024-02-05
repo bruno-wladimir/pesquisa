@@ -14,8 +14,9 @@ import axios from "axios";
 import CircularProgress from '@mui/material/CircularProgress';
 
 const theme = createTheme();
-//const URLAPI = "https://server-pesquisa.onrender.com";
-const URLAPI = "http://localhost:3000";
+import config from '../config';
+
+const URLAPI = config.apiUrl
 export default function Login() {
   const history = useNavigate();
 
@@ -24,11 +25,7 @@ export default function Login() {
   const [vendedores, setVendedores] = useState([])
   const [carregando, setCarregando] = useState(false);
 
-  React.useEffect(() => {
 
-
-
-  }, []);
 
   function logout() {
 

@@ -28,17 +28,7 @@ export default function menuitem() {
     return(
 <>
   
-{/* <MenuItem key="/sobre" onClick={handleCloseNavMenu}>
-              <Link to={'/sobre'} > 
-                  <Typography textAlign="center">sobre</Typography>
-                  </Link>
-                </MenuItem> */}
 
-                {/* <MenuItem key="/index" onClick={handleCloseNavMenu}>
-              <Link to={'/'} > 
-                  <Typography textAlign="center">Index</Typography>
-                  </Link>
-                </MenuItem> */}
 
                 <MenuItem key="/user-inicio" onClick={handleCloseNavMenu}>
               <Link to={'/user-inicio'} > 

@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import * as React from 'react';
 
 import { auth } from '../services/firebaseConfig';
-import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 
 export const  CheckRoute= ({ autenticado, children })=>{

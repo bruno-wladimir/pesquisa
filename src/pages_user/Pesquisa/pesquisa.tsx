@@ -10,18 +10,9 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Link } from 'react-router-dom';
 import { AlignHorizontalCenter } from '@mui/icons-material'
 import axios from 'axios';
+import config from '../../config';
 
-const URLAPI = "https://server-pesquisa.onrender.com";
-//const URLAPI = "http://localhost:3000";
-
-// interface Perguntas {
-
-//   categoria: string;
-//     perguntas: {
-//     pergunta: string;
-//     opcoes: string[];
-//   }[];
-// }
+const URLAPI = config.apiUrl
 
 function Pesquisa() {
 
@@ -100,18 +91,32 @@ function Pesquisa() {
         pergunta: pergunta.pergunta,
         resposta: selecoes[index] || '', // Use o array de seleções
       })),
+      link: localStorage.getItem("link")
     };
     console.log(dadosParaEnviar)
 
     const resposta = await axios.post(URLAPI+'/user/salvar_resposta', dadosParaEnviar);
 
         // Lide com a resposta da API, se necessário
-        console.log('Resposta da API:', resposta.data);
+        console.log('Resposta da API:', resposta.data.message);
+
+        if (resposta.data.message == "Resposta Salva"){
+          alert("Pesquisa Enviada !")
+        }
+
+if (resposta.data.message == "link ja usado"){
+  alert("Link Já Utilizado")
+}
+else{
+
+
+}
+
       } catch (erro) {
         console.error('Erro ao enviar dados para a API:', erro);
       }
 
-    handleOpen();
+    //handleOpen();
 
 
   };
@@ -121,42 +126,23 @@ function Pesquisa() {
   async function get_dados_lojista() {
 
     // Enviando para a API usando Axios
-    const response = await axios.get(URLAPI, {
+    const response = await axios.get(URLAPI+"/user/get_perguntas", {
+      params: {
+
+        link: localStorage.getItem("link")
+
+      },
       headers: {
         'Content-Type': 'application/json'
       }
     })
       .then(response => {
 
-        const dadosDaResposta = response.data;
-        //console.log(dadosDaResposta.perguntas_da_categoria[0])
-        // const verifcar = dadosDaResposta.perguntas_da_categoria[0];
-        // for (let i = 0; i < verifcar.perguntas.length; i++) {
-        //   const pergunta = verifcar.perguntas[i];
+        const dadosDaResposta = response;
 
-        //   console.log(`Pergunta: ${pergunta.pergunta}`);
-        //   if (pergunta.opcoes.length > 0) {
-        //     console.log('Opções:');
-        //     for (let j = 0; j < pergunta.opcoes.length; j++) {
-        //       console.log(`  - ${pergunta.opcoes[j]}`);
+        console.log(dadosDaResposta.data.resposta[0].perguntas);
 
-        //     }
-        //   }
-
-        //   else{
-        //     console.log('Sem opções disponíveis.');
-
-        //   }
-
-        // }
-
-
-        // const [perguntas, setPerguntas] = useState<DadosAPI[]>([]);
-        //console.log(response.data.response[0].perguntas) //array
-
-
-        setDados(dadosDaResposta.perguntas_da_categoria[0])
-        console.log(dadosDaResposta.perguntas_da_categoria[0]);
+        setDados(dadosDaResposta.data.resposta[0])
 
       })
       .catch(error => {

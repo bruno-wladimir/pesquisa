@@ -1,6 +1,8 @@
 import axios from "axios";
-const URLAPI = "https://server-pesquisa.onrender.com";
-//const URLAPI = "http://localhost:3000";
+
+import config from '../config';
+
+const URLAPI = config.apiUrl
 
  export  const get_dados_lojista_api = async ()=>{
 

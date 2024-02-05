@@ -19,9 +19,10 @@ import { CheckRoute } from "./components/auth";
 
  function AppRoutes(props) {
 
-
    const [authenticated, setAuthenticated] = useState<User| null|String | boolean>(localStorage.getItem("on")); // estou pegando a variavel do storage como ga,biarra , pis a pagina carrega mais rapido , posso tentar depois travar a tela com um load ... 
-    function setuserState(){
+   
+   
+   function setuserState(){
 
        const user =  localStorage.getItem("on")
         if (user =="1"){
@@ -34,6 +35,8 @@ import { CheckRoute } from "./components/auth";
     }
 
     function inicio(){
+      localStorage.setItem("on","1");
+
         auth.onAuthStateChanged(user => {
           if (user){
           console.log("user logauuuu",user)
@@ -50,16 +53,14 @@ import { CheckRoute } from "./components/auth";
       
       )
       }
-    inicio();
+
 
 
    useEffect(()=>{
+    console.log("effect routes");
 
-    // const unsubscribe = auth.onAuthStateChanged((user) => {
-    //     setAuthenticated(user);
-    //   });
-  
-    //   return () => unsubscribe();
+    inicio();
+
     }, []);
 
     return (
@@ -70,9 +71,9 @@ import { CheckRoute } from "./components/auth";
 
             <Route path="/" element={<CheckRoute autenticado={authenticated} ><EnvioPesquisa /></CheckRoute>}/>
 
-                <Route path="/user-inicio" element={<CheckRoute autenticado={authenticated} ><PaginaEntradaUser /></CheckRoute>}/>
+                <Route path="/user-inicio/:linkKey" element={<CheckRoute autenticado={authenticated} ><PaginaEntradaUser /></CheckRoute>}/>
                 {/* <CheckRoute  admin={authenticated}><PaginaEntradaUser /></CheckRoute> */}
-                <Route path="/user-pesquisa" element={<Pesquisa />}>  </Route>
+                <Route path="/user-pesquisa/" element={<Pesquisa />}>  </Route>
                 <Route path="/login" element={<Login />}>  </Route>
 
                 <Route path="/register" element={<Register />}>  </Route>

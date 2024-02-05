@@ -7,8 +7,9 @@ import Menu_Logista from '../../components/menu_logista'
 import { Button, FormControl, FormLabel, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import axios from 'axios';
 
-const URLAPI = "https://server-pesquisa.onrender.com";
-//const URLAPI = "http://localhost:3000";
+import config from '../../config';
+
+const URLAPI = config.apiUrl
 
 
 export default function EnvioPesquisa() {
@@ -89,7 +90,7 @@ export default function EnvioPesquisa() {
       <BarraNavegacao />
       <div className='p-6' >
 
-        <form onSubmit={handleSubmit} className='p-10 '>
+        <form onSubmit={handleSubmit} className='p-4 '>
 
           <FormControl fullWidth sx={{ my: 2 }}>
             <TextField

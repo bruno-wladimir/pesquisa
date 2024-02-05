@@ -16,6 +16,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Padding } from '@mui/icons-material';
 import '../../src/App.css'
+const imageUrl = 'https://exemplo.com/minha-imagem.jpg'; // Substitua pela sua URL real
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -45,6 +46,8 @@ export default function CardComponent(a:any) {
 
   return (
 <>
+
+
     <Card sx={{ maxWidth: 345}}>
       <CardHeader
        
@@ -55,7 +58,7 @@ export default function CardComponent(a:any) {
       <CardMedia 
         component="img"
         height="51"
-        image="airfrayer.jpeg"
+        image="/public/airfrayer.jpeg"
         alt="Paella dish"
 
          

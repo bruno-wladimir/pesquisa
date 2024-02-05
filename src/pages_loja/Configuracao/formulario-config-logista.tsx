@@ -13,9 +13,9 @@ import { styled } from '@mui/material/styles';
 import { PermCameraMic } from '@mui/icons-material';
 import axios from 'axios';
 import { auth } from "../../services/firebaseConfig";
+import config from '../../config';
 
-const URLAPI = "https://server-pesquisa.onrender.com";
-//const URLAPI = "http://localhost:3000";
+const URLAPI = config.apiUrl
 const style = {
   position: 'absolute' as 'absolute',
   top: '50%',
@@ -39,32 +39,11 @@ export default function Formulario_Config_Logista() {
   useEffect(() => {
 
 
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        console.log("use ", user.uid)
-        // setAuthenticated(true);
-
-      }
-      else {
-        // localStorage.setItem("on","0");
-
-      }
-    }
-
-    )
-
     //  const savedArray = localStorage.getItem('vendedores');
     get_dados_lojista();
 
     setArquivo(localStorage.getItem("logo"))
-    // if (savedArray) {
-    //   try {
-    //     setVendedores(JSON.parse(savedArray));
-    //   }
-    //   catch {
 
-    //   }
-    // }
   }, []);
 
   const [novoNome, setNovoNome] = useState('');

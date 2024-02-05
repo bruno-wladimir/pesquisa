@@ -9,8 +9,9 @@ import { ThemeProvider } from "styled-components";
 import { Button, FormControl, TextField, createTheme } from "@mui/material";
 import axios from 'axios';
 
-const URLAPI = "https://server-pesquisa.onrender.com";
-//const URLAPI = "http://localhost:3000";
+import config from '../config';
+
+const URLAPI = config.apiUrl
 
 export default function Register() {
   const history = useNavigate();

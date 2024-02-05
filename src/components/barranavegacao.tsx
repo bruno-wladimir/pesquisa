@@ -34,7 +34,8 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
     useEffect(() => {
       const savedArray = localStorage.getItem('vendedores');
-  
+      console.log("effect barra nevegacao");
+
     setArquivo(localStorage.getItem("logo"))
       if (savedArray) {
         try {
@@ -178,7 +179,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
             }}
           >
             <div className='w-1/2 h-auto'> 
-          <img src='logo.png'></img>
+          <img src='/public/logo.png'></img>
           </div>
           </Box>
 
@@ -227,7 +228,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
             }}
           >
              <div className='w-1/2 h-auto'> 
-          <img src='logo.png'></img>
+          <img src='/public/logo.png'></img>
           </div>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
