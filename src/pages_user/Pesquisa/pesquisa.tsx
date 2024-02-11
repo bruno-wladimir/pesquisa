@@ -102,6 +102,7 @@ function Pesquisa() {
 
       if (resposta.data.message == "Resposta Salva") {
         alert("Pesquisa Enviada !")
+        window.location.reload();
       }
 
       if (resposta.data.message == "link ja usado") {
