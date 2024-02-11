@@ -73,8 +73,9 @@ export default function EnvioPesquisa() {
 
     await axios.post(URLAPI + '/loja/send', msg)
       .then(response => {
-        alert(response.data.message)
         clear();
+        alert(response.data.message)
+        
 
       })
       .catch(error => {

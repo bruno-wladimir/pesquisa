@@ -7,169 +7,259 @@ import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
 import { Link } from 'react-router-dom';
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
-import { minHeight } from '@mui/system';
+import { Avatar, Divider, List, ListItem, ListItemAvatar, ListItemText, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, } from '@mui/material';
+import { minHeight, } from '@mui/system';
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import config from '../config'
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+const URLAPI = config.apiUrl
 
 
-  
+
+
 const rows = [
-    createData("12/01/1991", 'Bruno', 33, 6.0, 5, "Faltou variedade"),
-    createData("12/01/1991", 'Bia', 31, 9.0, 4, "nada a reclamar"),
-    createData("12/01/1991", 'Raynara', 22, 16.0, 2, "Boa localizacao"),
-    createData("12/01/1991", 'Renato', 2, 3.7, 1, "vendedor mau educado, poderia melhorar o atendimento "),
-    createData("12/01/1991", 'Jose das couves', 30, 16.0, 3, "Gostei bastante"),
+  createData("12/01/1991", 'Bruno', 33, 6.0, 5, "Faltou variedade"),
+  createData("12/01/1991", 'Bia', 31, 9.0, 4, "nada a reclamar"),
+  createData("12/01/1991", 'Raynara', 22, 16.0, 2, "Boa localizacao"),
+  createData("12/01/1991", 'Renato', 2, 3.7, 1, "vendedor mau educado, poderia melhorar o atendimento "),
+  createData("12/01/1991", 'Jose das couves', 30, 16.0, 3, "Gostei bastante"),
 
-    createData("12/01/1991", 'Bruno', 33, 6.0, 5, "Faltou variedade"),
-    createData("12/01/1991", 'Bia', 31, 9.0, 4, "nada a reclamar"),
-    createData("12/01/1991", 'Raynara', 22, 16.0, 2, "Boa localizacao"),
-    createData("12/01/1991", 'Renato', 2, 3.7, 1, "vendedor mau educado, poderia melhorar o atendimento "),
-    createData("12/01/1991", 'Jose das couves', 30, 16.0, 3, "Gostei bastante"),
-    // ... mais dados
+  createData("12/01/1991", 'Bruno', 33, 6.0, 5, "Faltou variedade"),
+  createData("12/01/1991", 'Bia', 31, 9.0, 4, "nada a reclamar"),
+  createData("12/01/1991", 'Raynara', 22, 16.0, 2, "Boa localizacao"),
+  createData("12/01/1991", 'Renato', 2, 3.7, 1, "vendedor mau educado, poderia melhorar o atendimento "),
+  createData("12/01/1991", 'Jose das couves', 30, 16.0, 3, "Gostei bastante"),
+  // ... mais dados
 
 ];
 
 const actions = [
   { icon: <FileCopyIcon />, name: 'Copy' },
-  { icon: <SaveIcon />, name: 'Save'},
+  { icon: <SaveIcon />, name: 'Save' },
   { icon: <PrintIcon />, name: 'Print' },
   { icon: <ShareIcon />, name: 'Share' },
 ];
 
 function createData(
-    Data: string,
-     Nome: string,
-    Idade: number,
-    Atendimento_vendedor: number,
+  Data: string,
+  Nome: string,
+  Idade: number,
+  Atendimento_vendedor: number,
 
-    Organizacao_loja: number,
-    observacoes: string,
-  ) {
-    return { Nome,Data, Idade, Atendimento_vendedor, Organizacao_loja, observacoes };
-  }
+  Organizacao_loja: number,
+  observacoes: string,
+) {
+  return { Nome, Data, Idade, Atendimento_vendedor, Organizacao_loja, observacoes };
+}
 
 
 export default function Menu_Logista() {
 
-    var somaNotas=0;
-    var soma_organizacao =0;
-    var [Media, setMedia] = useState(0)
-    var [Media_org, setMedia_org] = useState(0)
+  // const [perguntas_media,setRespostas] = useState<{ pergunta: string; total: number; quantidade: number; }[]>([]);
+  const [perguntasRespostasAgrupadas, setPerguntasRespostasAgrupadas] = useState({});
+  const [perguntas_media, setRespostas] = useState<{ pergunta: string; media: string }[]>([]);
 
 
-    useEffect(() => {
+  useEffect(() => {
 
-    console.log("effect logista");
-        var media=0;
-        var media_organizaçào=0;
-          {rows.map((item, index) => (
-         //   console.log("Media: "+ item.Nome)
 
-            somaNotas += item.Atendimento_vendedor
-            
+    get_respostas();
 
-            ))}
-            {rows.map((item, index) => (
-                //   console.log("Media: "+ item.Nome)
-       
-                soma_organizacao += item.Organizacao_loja
-                   
-       
-                   ))}
-                   media_organizaçào = soma_organizacao / rows.length
-          media = somaNotas/rows.length;
-    // console.log("Media: "+ media)
-    setMedia_org(Number(media_organizaçào.toFixed(2)))
-     setMedia(Number(media.toFixed(2)))
 
-    return () => {
-        // Código de limpeza, se necessário
-        console.log("Componente desmontado.");
-      };
-    
 
-    }, []);
+  }, []);
+
+
+  async function get_respostas() {
+
+
+
+    let somaValores = 0;
+    let numRespostas = 0;
+    const respostasAgrupadas = {};
+
+    const response = await axios.get(URLAPI + '/loja/get_respostas', {
+      params: {
+
+        email: localStorage.getItem("email")
+
+      },
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => {
+
+        //calculateAverages(response.data.response)
+        console.log(response.data.response)
+
+        ///const valoresAgrupados = group(response.data.response);
+        group(response.data.response)
+
+
+
+
+      })
+      .catch(error => {
+        console.error('Erro ao enviar para a API:', error);
+      });
+  }
+
+
+
+  function group(array) {
+
+    const mediaRespostasPorPergunta = [] as { pergunta: string; total: number; quantidade: number }[];
+
+    console.log(array);
+
+
+    array.forEach(questionario => {
+      // Iterando sobre as respostas de cada questionário
+      questionario.respostas.forEach(questionario => {
+        const { pergunta, resposta: valorResposta } = questionario;
+
+        // Verifica se a pergunta já está presente no array
+
+        const perguntaIndex = mediaRespostasPorPergunta.findIndex(item => item.pergunta === pergunta);
+
+        if (perguntaIndex === -1) {
+          // Se não estiver presente, adiciona a pergunta ao array
+
+          mediaRespostasPorPergunta.push({ pergunta, total: converterRespostaParaValor(valorResposta), quantidade: 1 });
+
+          // setRespostas(mediaRespostasPorPergunta)
+        } else {
+          // Se já estiver presente, atualiza os valores
+          // let converter = converterRespostaParaValor(valorResposta)
+          if (valorResposta =="Sim"){
+
+            console.log('entou no sim');
+            mediaRespostasPorPergunta[perguntaIndex].quantidade++
+            mediaRespostasPorPergunta[perguntaIndex].total += 1*100;
+          } 
+          else{
+
+          mediaRespostasPorPergunta[perguntaIndex].total += converterRespostaParaValor(valorResposta);
+          mediaRespostasPorPergunta[perguntaIndex].quantidade++;
+          }
+          //setRespostas(mediaRespostasPorPergunta)
+        }
+      });
+    });
+
+
+    const perguntasMedia = mediaRespostasPorPergunta.map(item => ({
+      pergunta: item.pergunta,
+      media: (item.total / item.quantidade).toFixed(1)
+    }));
+    setRespostas(perguntasMedia)
+    console.log(perguntas_media);
+
+  }
+  function converterRespostaParaValor(resposta) {
+    switch (resposta) {
+      case "Excelente":
+        return 5;
+      case "Bom":
+        return 2.5;
+        case "Regular":
+          return 1.5;
+          case "Ruim":
+          return 0;
+      case "sim":
+        return 1;
+      default:
+        return 0; // Valor padrão para respostas desconhecidas
+    }
+  }
+  const calculateAverages = (respostas) => {
+    // Objeto para armazenar respostas agrupadas por pergunta
+
+    const groupedQuestions = {};
+
+    // Agrupar respostas por pergunta e contar ocorrências de cada resposta
+    respostas.forEach(resposta => {
+      console.log(resposta.respostas);
+      const { pergunta, resposta: respostaTexto } = resposta.respostas;
+      if (!groupedQuestions[pergunta]) {
+        groupedQuestions[pergunta] = {
+          total: 1,
+          counts: { [respostaTexto]: 1 }
+        };
+      } else {
+        groupedQuestions[pergunta];
+        if (!groupedQuestions[pergunta]) {
+          groupedQuestions[pergunta] = 1;
+        } else {
+          groupedQuestions[pergunta];
+        }
+      }
+    });
+    console.log(groupedQuestions)
+
+
+  }
 
   return (
-<>
+    <>
+      {/* <div>
 
-<div> 
+        {perguntas_media.map((feedback: any, index) => (
+          <div key={index}>
+            <h3>{ index +1} -  {feedback.pergunta}</h3>
+            <ul>
+              <li key={index}>
+                <strong>{ feedback.media ==0 ? `${`Sem Informações`}` : feedback.media >5 ? `${feedback.media}%` :  `${feedback.media} de 5` } </strong>
+              </li>
 
-<Box
-      sx={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        '& > :not(style)': {
-          m: 1,
-          width: 128,
-          height: 128,
-        },
-      }}
-    >
-      <Paper elevation={3} >
-      Média <br></br> atendimento vendedor: { Media}
-    </Paper>
+            </ul>
+          </div>
+        ))}
+
+
+      </div> */}
+
+      {perguntas_media.map((feedback: any, index) => (
+
+      <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+      <ListItem alignItems="flex-start">
+        <ListItemAvatar>
+          {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" /> */}
+          <QuestionAnswerIcon></QuestionAnswerIcon>
+        </ListItemAvatar>
+        <ListItemText
+          primary= {feedback.pergunta}
+          secondary={
+            <React.Fragment>
+              <Typography
+                sx={{ display: 'inline' }}
+                component="span"
+                variant="body2"
+                color="text.primary"
+              >
+                <strong>{ feedback.media ==0 ? `${`Sem Informações`}` : feedback.media >5 ? `${feedback.media}% de 100%` :  `${feedback.media} de 5` } </strong>
+              </Typography>
+            </React.Fragment>
+          }
+        />
+      </ListItem>
+      <Divider variant="inset" component="li" />
       
-    <Paper elevation={3} >
-      Média <br></br> Organizacão loja: { Media_org}
-    </Paper>
+      
+    </List>
 
-    </Box>
-
-
-<TableContainer component={Paper} style={{ maxHeight: '400px', overflowY: 'auto' }}>
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-           
-
-            <TableCell>Nome</TableCell>
-            <TableCell>Data</TableCell>
-
-            <TableCell align="right">Idade</TableCell>
-            <TableCell align="right">Atendimento_vendedor</TableCell>
-            <TableCell align="right">Organizacao_loja</TableCell>
-            <TableCell align="right">observacoes</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow
-              key={row.Nome}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">{row.Nome} </TableCell>
-              <TableCell component="th" scope="row">{row.Data} </TableCell>
-
-              <TableCell align="right">{row.Idade}</TableCell>
-              <TableCell align="right">{row.Atendimento_vendedor}</TableCell>
-              <TableCell align="right">{row.Organizacao_loja}</TableCell>
-              <TableCell align="right">{row.observacoes}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-
-  
+))}
 
 
 
-    </div>
-    {/* <Link to={ '/form-logista'}> 
-        <Box >
-                <div style={{ minHeight: '80vh', display: 'flex', flexDirection: 'column' }}>
 
-      <SpeedDial
-        ariaLabel="SpeedDial basic example"
-        sx={{ position: 'absolute', bottom: 16, right: 16 }}
-        icon={<SpeedDialIcon />}
-      >
-    
-      </SpeedDial>
-      </div> 
-    </Box>
-    </Link> */}
+
+
+
+
+
     </>
   );
 }

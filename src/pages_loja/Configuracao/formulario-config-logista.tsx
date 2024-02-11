@@ -403,9 +403,7 @@ export default function Formulario_Config_Logista() {
       {/* INICIO LISTA VENDEDORES  */}
       {/* {vendedores.map((nome_loja,index)=>(   */}
 
-      <Button variant="contained" onClick={handleOpen} endIcon={<AddIcon />}>
-        Adicionar vendedor
-      </Button>
+
 
       {vendedores.map((nome_loja, index) => {
         return (
@@ -429,7 +427,9 @@ export default function Formulario_Config_Logista() {
 
       })}
 
-
+<Button variant="contained" onClick={handleOpen} endIcon={<AddIcon />}>
+        Adicionar vendedor
+      </Button>
       {/* FIM LISTA VENDEDORES */}
 
 

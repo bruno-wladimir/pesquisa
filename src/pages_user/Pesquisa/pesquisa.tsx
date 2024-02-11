@@ -81,40 +81,40 @@ function Pesquisa() {
   function setValue(newValue: number | null) {
     throw new Error('Function not implemented.')
   }
-  const handleSubmit =async  (event) => { // AQUI MANDA OS DADOS PARA API E SALVA NO DB .
+  const handleSubmit = async (event) => { // AQUI MANDA OS DADOS PARA API E SALVA NO DB .
     event.preventDefault();
     // Aqui você pode lidar com os dados do formulário, como enviá-los para um servidor
     // console.log('Dados do formulário:', { nome, idade, cidade ,sexo,atendimentovendedor,organizacaoloja});
     try {
-    const dadosParaEnviar = {
-      respostas: dados.perguntas.map((pergunta, index) => ({
-        pergunta: pergunta.pergunta,
-        resposta: selecoes[index] || '', // Use o array de seleções
-      })),
-      link: localStorage.getItem("link")
-    };
-    console.log(dadosParaEnviar)
+      const dadosParaEnviar = {
+        respostas: dados.perguntas.map((pergunta, index) => ({
+          pergunta: pergunta.pergunta,
+          resposta: selecoes[index] || '', // Use o array de seleções
+        })),
+        link: localStorage.getItem("link")
+      };
+      console.log(dadosParaEnviar)
 
-    const resposta = await axios.post(URLAPI+'/user/salvar_resposta', dadosParaEnviar);
+      const resposta = await axios.post(URLAPI + '/user/salvar_resposta', dadosParaEnviar);
 
-        // Lide com a resposta da API, se necessário
-        console.log('Resposta da API:', resposta.data.message);
+      // Lide com a resposta da API, se necessário
+      console.log('Resposta da API:', resposta.data);
 
-        if (resposta.data.message == "Resposta Salva"){
-          alert("Pesquisa Enviada !")
-        }
-
-if (resposta.data.message == "link ja usado"){
-  alert("Link Já Utilizado")
-}
-else{
-
-
-}
-
-      } catch (erro) {
-        console.error('Erro ao enviar dados para a API:', erro);
+      if (resposta.data.message == "Resposta Salva") {
+        alert("Pesquisa Enviada !")
       }
+
+      if (resposta.data.message == "link ja usado") {
+        alert("Link Já Utilizado")
+      }
+      else {
+
+
+      }
+
+    } catch (erro) {
+      console.error('Erro ao enviar dados para a API:', erro);
+    }
 
     //handleOpen();
 
@@ -126,7 +126,7 @@ else{
   async function get_dados_lojista() {
 
     // Enviando para a API usando Axios
-    const response = await axios.get(URLAPI+"/user/get_perguntas", {
+    const response = await axios.get(URLAPI + "/user/get_perguntas", {
       params: {
 
         link: localStorage.getItem("link")
@@ -260,23 +260,23 @@ else{
               </RadioGroup>
             ) : (
               <TextField
-       
-        fullWidth
-        margin="normal"
-        value={nome}
-        onChange={(e) => setNome(e.target.value)}
-        
-      />
+
+                fullWidth
+                margin="normal"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+
+              />
             )}
           </div>
         ))}
-       
+
         <Button type="submit" variant="contained" color="primary">
           Enviar
         </Button>
       </form>
 
-   {/* MODAL  */}
+      {/* MODAL  */}
       <Modal
         open={open}
         onClose={handleClose}
