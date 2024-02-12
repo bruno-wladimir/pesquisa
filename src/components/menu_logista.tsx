@@ -119,7 +119,7 @@ export default function Menu_Logista() {
       // Iterando sobre as respostas de cada questionário
       questionario.respostas.forEach(questionario => {
         const { pergunta, resposta: valorResposta } = questionario;
-
+          
         // Verifica se a pergunta já está presente no array
 
         const perguntaIndex = mediaRespostasPorPergunta.findIndex(item => item.pergunta === pergunta);
