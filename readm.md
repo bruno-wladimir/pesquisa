@@ -6,6 +6,13 @@ git commit -m "novas telas "
 
 git push -u origin main 
 
+atualizar repositorio 
+cd <diretório_do_repositório>
+git checkout <branch>
+git pull origin <branch>
+
+pm2 restart <nome_do_aplicativo>
+
 git remote -v verificar repositorio configurado
 
 rm -rf .git - remove diretorio git 
