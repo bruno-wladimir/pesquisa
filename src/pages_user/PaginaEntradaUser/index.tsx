@@ -6,6 +6,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import config from '../../config';
 import axios from 'axios';
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/material';
 
 const URLAPI = config.apiUrl
 function PaginaEntradaUser() {
@@ -20,6 +21,7 @@ function PaginaEntradaUser() {
 
     get_dados_lojista(ultimaParte);
     localStorage.setItem("link",ultimaParte)
+    
 
   }, []);
 
@@ -67,12 +69,37 @@ Você Já Votou !
       </div>
     ) : (
       <>
-        <div className='p-6 flex items-center justify-center '>
-          <CardComponent />
+        <div className='p-6 flex items-center justify-center flex-col'>
+        
+
+        <Card sx={{ maxWidth: 345  }} >
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                height="140"
+                image="/logomb.png"
+                alt="green iguana"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  Loja Parceira
+                </Typography>
+
+              </CardContent>
+            </CardActionArea>
+
+          </Card>
+
+        
+          </div>
+          <div className='p-6 flex items-center justify-center flex-col'>
+
+        <CardComponent />
         </div>
+
         <div className='p-10'>
           <Link to={'/user-pesquisa'} >
-            <Button variant="contained">Quero Concorrer!</Button>
+            <Button variant="contained">Quero Concorrer !</Button>
           </Link>
         </div>
       </>

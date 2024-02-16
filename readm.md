@@ -20,3 +20,4 @@ rm -rf .git - remove diretorio git
 /identacao 
 No Visual Studio Code (VSCode) no macOS, você pode utilizar o atalho Shift + Option + F
 
+sudo systemctl start nginx // iniciar servidor nginx , sem ele a api não funciona e o app tbm não funciona 

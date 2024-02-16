@@ -109,8 +109,8 @@ export default function Menu_Logista() {
 
 
   function group(array) {
-
-    const mediaRespostasPorPergunta = [] as { pergunta: string; total: number; quantidade: number }[];
+console.log("function group")
+    const mediaRespostasPorPergunta = [] as { pergunta: string; total: number; quantidade: number, tipo: number }[];
 
     console.log(array);
 
@@ -126,20 +126,41 @@ export default function Menu_Logista() {
 
         if (perguntaIndex === -1) {
           // Se não estiver presente, adiciona a pergunta ao array
+          console.log("pergunta nao esta no array")
+          mediaRespostasPorPergunta.push({ pergunta, total: converterRespostaParaValor(valorResposta), quantidade: 1, tipo:1 });
+          let converter = converterRespostaParaValor(valorResposta)
+         
+         
+          // if (valorResposta =="Sim"){
 
-          mediaRespostasPorPergunta.push({ pergunta, total: converterRespostaParaValor(valorResposta), quantidade: 1 });
-
+          //   console.log('entou no sim');
+          //   mediaRespostasPorPergunta[perguntaIndex].quantidade++
+          //   mediaRespostasPorPergunta[perguntaIndex].total += 1*100;
+          // } 
           // setRespostas(mediaRespostasPorPergunta)
-        } else {
+        } 
+        
+        else {
           // Se já estiver presente, atualiza os valores
-          // let converter = converterRespostaParaValor(valorResposta)
-          if (valorResposta =="Sim"){
+         let converter = converterRespostaParaValor(valorResposta)
 
-            console.log('entou no sim');
-            mediaRespostasPorPergunta[perguntaIndex].quantidade++
-            mediaRespostasPorPergunta[perguntaIndex].total += 1*100;
+          if (valorResposta =="Sim" ||valorResposta =="Não" ){
+
+            mediaRespostasPorPergunta[perguntaIndex].tipo = 2 ;
+
+            mediaRespostasPorPergunta[perguntaIndex].quantidade++ // quentidade de pessoas que votou 
+
+            if (valorResposta =="Sim"){
+              mediaRespostasPorPergunta[perguntaIndex].total += 1; 
+
+            }
+         
+
+            console.log("pergunta sim",mediaRespostasPorPergunta[perguntaIndex])
           } 
+     
           else{
+            console.log('entrei em perguntas quantitativas ');
 
           mediaRespostasPorPergunta[perguntaIndex].total += converterRespostaParaValor(valorResposta);
           mediaRespostasPorPergunta[perguntaIndex].quantidade++;
@@ -151,8 +172,12 @@ export default function Menu_Logista() {
 
 
     const perguntasMedia = mediaRespostasPorPergunta.map(item => ({
+      
       pergunta: item.pergunta,
-      media: (item.total / item.quantidade).toFixed(1)
+     
+      // media: (item.total / item.quantidade).toFixed(1)
+            media: (item.tipo ===2)? ( (item.total/item.quantidade)*100 ).toFixed(1).toString(): (item.total/item.quantidade).toFixed(1)
+
     }));
     setRespostas(perguntasMedia)
     console.log(perguntas_media);
@@ -163,44 +188,51 @@ export default function Menu_Logista() {
       case "Excelente":
         return 5;
       case "Bom":
-        return 2.5;
+        return 4;
         case "Regular":
-          return 1.5;
+          return 3;
           case "Ruim":
-          return 0;
-      case "sim":
+          return 2;
+          case "Péssimo":
+          return 1;
+          case "Sem comentários":
+            return 0
+      case "Sim":
         return 1;
+        case "Não":
+          return 0;
+
       default:
         return 0; // Valor padrão para respostas desconhecidas
     }
   }
-  const calculateAverages = (respostas) => {
-    // Objeto para armazenar respostas agrupadas por pergunta
+  // const calculateAverages = (respostas) => {
+  //   // Objeto para armazenar respostas agrupadas por pergunta
 
-    const groupedQuestions = {};
+  //   const groupedQuestions = {};
 
-    // Agrupar respostas por pergunta e contar ocorrências de cada resposta
-    respostas.forEach(resposta => {
-      console.log(resposta.respostas);
-      const { pergunta, resposta: respostaTexto } = resposta.respostas;
-      if (!groupedQuestions[pergunta]) {
-        groupedQuestions[pergunta] = {
-          total: 1,
-          counts: { [respostaTexto]: 1 }
-        };
-      } else {
-        groupedQuestions[pergunta];
-        if (!groupedQuestions[pergunta]) {
-          groupedQuestions[pergunta] = 1;
-        } else {
-          groupedQuestions[pergunta];
-        }
-      }
-    });
-    console.log(groupedQuestions)
+  //   // Agrupar respostas por pergunta e contar ocorrências de cada resposta
+  //   respostas.forEach(resposta => {
+  //     console.log(resposta.respostas);
+  //     const { pergunta, resposta: respostaTexto } = resposta.respostas;
+  //     if (!groupedQuestions[pergunta]) {
+  //       groupedQuestions[pergunta] = {
+  //         total: 1,
+  //         counts: { [respostaTexto]: 1 }
+  //       };
+  //     } else {
+  //       groupedQuestions[pergunta];
+  //       if (!groupedQuestions[pergunta]) {
+  //         groupedQuestions[pergunta] = 1;
+  //       } else {
+  //         groupedQuestions[pergunta];
+  //       }
+  //     }
+  //   });
+  //   console.log(groupedQuestions)
 
 
-  }
+  // }
 
   return (
     <>
@@ -218,7 +250,6 @@ export default function Menu_Logista() {
           </div>
         ))}
 
-
       </div> */}
 
       {perguntas_media.map((feedback: any, index) => (
@@ -234,14 +265,15 @@ export default function Menu_Logista() {
           secondary={
             <React.Fragment>
               <Typography
-                sx={{ display: 'inline' }}
+                sx={{ display: 'inline',color:'green',fontSize: '1.2rem', textAlign: 'center' }}
                 component="span"
                 variant="body2"
                 color="text.primary"
               >
-                <strong>{ feedback.media ==0 ? `${`Sem Informações`}` : feedback.media >5 ? `${feedback.media}% de 100%` :  `${feedback.media} de 5` } </strong>
+                <strong>{ feedback.media ==0 ? `${`Sem Informações`}` : feedback.media >5 ? `${feedback.media} % votou Sim` :  `${feedback.media} / 5` } </strong>
               </Typography>
             </React.Fragment>
+            
           }
         />
       </ListItem>

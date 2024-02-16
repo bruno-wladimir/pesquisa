@@ -170,28 +170,6 @@ function Pesquisa() {
       <Typography variant="h5" gutterBottom className='p-4'>
         <div className='p-6 flex items-center justify-center '>
 
-          {/* inicio card inicio */}
-
-          <Card sx={{ maxWidth: 345 }} >
-            <CardActionArea>
-              <CardMedia
-                component="img"
-                height="140"
-                image="logomb.png"
-                alt="green iguana"
-              />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  Loja Parceira
-                </Typography>
-
-              </CardContent>
-            </CardActionArea>
-
-          </Card>
-          {/* fim card inicio */}
-
-
           {/* <div>
       <h2>Perguntas da API</h2>
       {perguntas.map((item, index) => (
@@ -264,8 +242,8 @@ function Pesquisa() {
 
                 fullWidth
                 margin="normal"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
+                value={selecoes[index] || ''}
+                onChange={(e) => handleSelecaoChange(index, e.target.value)}
 
               />
             )}

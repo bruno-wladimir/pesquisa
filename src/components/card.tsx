@@ -56,15 +56,19 @@ export default function CardComponent(a:any) {
         subheader="Sorteio dia 4/02/2023"
       />
       <CardMedia 
+       sx={{
+        padding: '15px' // Adiciona padding de 10 pixels ao redor da imagem
+      }}
         component="img"
         height="51"
-        image="/public/airfrayer.jpeg"
+        
+        image="https://m.media-amazon.com/images/I/81naSwftdZL._AC_UF894,1000_QL80_.jpg"
         alt="Paella dish"
 
          
       />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body1" color="text.secondary">
           Air Frayer - Fritadeira Sem óleo
         </Typography>
       </CardContent>
