@@ -56,7 +56,8 @@ export default function EnvioPesquisa() {
       telefone_cliente,
       vendedor,
       loja,
-      email: localStorage.getItem("email")
+      email: localStorage.getItem("email"),
+      urlimage: localStorage.getItem("urlimage")
     }
     //const dadosLojaJSON = JSON.stringify(dadosLoja);
 
