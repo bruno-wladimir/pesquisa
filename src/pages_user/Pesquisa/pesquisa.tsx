@@ -8,10 +8,11 @@ import { CircularProgress } from '@mui/material';
 import RestoreIcon from '@mui/icons-material/Restore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate} from 'react-router-dom';
 import { AlignHorizontalCenter } from '@mui/icons-material'
 import axios from 'axios';
 import config from '../../config';
+const history = useNavigate();
 
 const URLAPI = config.apiUrl
 
@@ -113,9 +114,10 @@ function Pesquisa() {
       if (resposta.data.message == "Resposta Salva") {
         setLoading(false)
         alert("Pesquisa Enviada !")
-       
+        const urlAtual = location.pathname.split('/');
+        const ultimaParte = urlAtual[urlAtual.length - 1];
 
-        window.location.reload();
+        history('/user-inicio/:'+ultimaParte);
       }
 
       if (resposta.data.message == "link ja usado") {
