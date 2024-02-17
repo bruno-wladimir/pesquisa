@@ -49,7 +49,7 @@ export default function Login() {
         //const user = userCredential.user;
         console.log("logado");
         const userEmail = userCredential.user.email;
-        const uid = userCredential.user.uid;
+        //const uid = userCredential.user.uid;
 
           if (userEmail !==null){
             localStorage.setItem("email",userEmail)
@@ -57,7 +57,7 @@ export default function Login() {
           }
         
         localStorage.setItem("on", "1");
-         localStorage.setItem("id_fire", uid)
+        // localStorage.setItem("id_fire", uid)
 
         getdadosloja();
 

@@ -12,7 +12,6 @@ import { Link ,useNavigate} from 'react-router-dom';
 import { AlignHorizontalCenter } from '@mui/icons-material'
 import axios from 'axios';
 import config from '../../config';
-const history = useNavigate();
 
 const URLAPI = config.apiUrl
 
@@ -92,6 +91,8 @@ function Pesquisa() {
 
 
   const handleSubmit = async (event) => { // AQUI MANDA OS DADOS PARA API E SALVA NO DB .
+    const history = useNavigate();
+
     event.preventDefault();
     // Aqui você pode lidar com os dados do formulário, como enviá-los para um servidor
     // console.log('Dados do formulário:', { nome, idade, cidade ,sexo,atendimentovendedor,organizacaoloja});
