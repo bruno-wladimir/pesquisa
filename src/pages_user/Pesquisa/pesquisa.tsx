@@ -96,6 +96,7 @@ function Pesquisa() {
         link: localStorage.getItem("link")
       };
       console.log(dadosParaEnviar)
+      setLoading(true)
 
       const resposta = await axios.post(URLAPI + '/user/salvar_resposta', dadosParaEnviar);
 
@@ -104,11 +105,15 @@ function Pesquisa() {
 
       if (resposta.data.message == "Resposta Salva") {
         alert("Pesquisa Enviada !")
+        setLoading(false)
+
         window.location.reload();
       }
 
       if (resposta.data.message == "link ja usado") {
         alert("Link Já Utilizado")
+        setLoading(false)
+
       }
       else {
 
