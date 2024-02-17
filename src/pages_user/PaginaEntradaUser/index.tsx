@@ -77,7 +77,7 @@ Você Já Votou !
               <CardMedia
                 component="img"
                 height="140"
-                image="/logomb.png"
+                image="https://firebasestorage.googleapis.com/v0/b/pesquisa-ec906.appspot.com/o/PARCEIRO.png?alt=media&token=05ab2fc1-77b8-4ac3-8b21-225783225dce"
                 alt="green iguana"
               />
               <CardContent>

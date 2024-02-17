@@ -30,36 +30,36 @@ export default function menuitem() {
   
 
 
-                <MenuItem key="/user-inicio" onClick={handleCloseNavMenu}>
+                {/* <MenuItem key="/user-inicio" onClick={handleCloseNavMenu}>
               <Link to={'/user-inicio'} > 
                   <Typography textAlign="center">Inicio-USR</Typography>
                   </Link>
-                </MenuItem>
+                </MenuItem> */}
 
 
-                <MenuItem key="/user-pesquisa" onClick={handleCloseNavMenu}>
+                {/* <MenuItem key="/user-pesquisa" onClick={handleCloseNavMenu}>
               <Link to={'/user-pesquisa'} > 
                   <Typography textAlign="center">Pesquisa-USR</Typography>
                   </Link>
-                </MenuItem>
+                </MenuItem> */}
 
 {/* LOGISTA */}
 
                 <MenuItem key="/lojista-enviopesquisa" onClick={handleCloseNavMenu}>
                 <Link to={'/lojista-enviopesquisa'} > 
-                  <Typography textAlign="center">Envio-LOJ</Typography>
+                  <Typography textAlign="center">Envio Pesquisa</Typography>
                   </Link>
                 </MenuItem>
 
             
                 <MenuItem key="/lojista-dash" onClick={handleCloseNavMenu}>
                 <Link to={'/lojista-dash'} > 
-                  <Typography textAlign="center">Dash </Typography>
+                  <Typography textAlign="center">Relatório</Typography>
                   </Link>
                 </MenuItem>
                 <MenuItem key="/lojista-configuracao" onClick={handleCloseNavMenu}>
                 <Link to={'/lojista-configuracao'} > 
-                  <Typography textAlign="center">Config </Typography>
+                  <Typography textAlign="center">Configurações</Typography>
                   </Link>
                 </MenuItem>
                 

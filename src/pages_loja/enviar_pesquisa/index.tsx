@@ -6,6 +6,7 @@ import React from 'react'
 import Menu_Logista from '../../components/menu_logista'
 import { Button, FormControl, FormLabel, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import axios from 'axios';
+import { CircularProgress } from '@mui/material';
 
 import config from '../../config';
 
@@ -14,6 +15,7 @@ const URLAPI = config.apiUrl
 
 export default function EnvioPesquisa() {
 
+  const [loading, setLoading] = useState(false);
 
   const [nome_cliente, setCliente] = useState('')
   const [telefone_cliente, setTelCliente] = useState('');
@@ -70,12 +72,13 @@ export default function EnvioPesquisa() {
 
   }
   async function enviarLink(msg) {
+    setLoading(true);
 
     await axios.post(URLAPI + '/loja/send', msg)
       .then(response => {
         clear();
         alert(response.data.message)
-        
+        setLoading(false);
 
       })
       .catch(error => {
@@ -90,6 +93,11 @@ export default function EnvioPesquisa() {
 
       <BarraNavegacao />
       <div className='p-6' >
+      {loading ? (
+        // Se loading for verdadeiro, exibe o indicador de carregamento
+<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+  <CircularProgress />
+</div>      ) : (
 
         <form onSubmit={handleSubmit} className='p-4 '>
 
@@ -143,7 +151,7 @@ export default function EnvioPesquisa() {
 
         </form>
 
-
+)}
       </div>
 
     </>

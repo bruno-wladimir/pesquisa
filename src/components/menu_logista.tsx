@@ -16,24 +16,6 @@ import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 const URLAPI = config.apiUrl
 
 
-
-
-const rows = [
-  createData("12/01/1991", 'Bruno', 33, 6.0, 5, "Faltou variedade"),
-  createData("12/01/1991", 'Bia', 31, 9.0, 4, "nada a reclamar"),
-  createData("12/01/1991", 'Raynara', 22, 16.0, 2, "Boa localizacao"),
-  createData("12/01/1991", 'Renato', 2, 3.7, 1, "vendedor mau educado, poderia melhorar o atendimento "),
-  createData("12/01/1991", 'Jose das couves', 30, 16.0, 3, "Gostei bastante"),
-
-  createData("12/01/1991", 'Bruno', 33, 6.0, 5, "Faltou variedade"),
-  createData("12/01/1991", 'Bia', 31, 9.0, 4, "nada a reclamar"),
-  createData("12/01/1991", 'Raynara', 22, 16.0, 2, "Boa localizacao"),
-  createData("12/01/1991", 'Renato', 2, 3.7, 1, "vendedor mau educado, poderia melhorar o atendimento "),
-  createData("12/01/1991", 'Jose das couves', 30, 16.0, 3, "Gostei bastante"),
-  // ... mais dados
-
-];
-
 const actions = [
   { icon: <FileCopyIcon />, name: 'Copy' },
   { icon: <SaveIcon />, name: 'Save' },

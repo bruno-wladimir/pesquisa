@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import BarraNavegacao from '../../components/barranavegacao'
 import '../../App.css'
 import React from 'react'
-import { BottomNavigation, BottomNavigationAction, Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, FormControl, FormControlLabel, FormLabel, MenuItem, Modal, Radio, RadioGroup, Rating, Select, TextField, Typography } from '@mui/material'
+import { BottomNavigation, BottomNavigationAction, Box, Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Divider, FormControl, FormControlLabel, FormLabel, MenuItem, Modal, Radio, RadioGroup, Rating, Select, TextField, Typography } from '@mui/material'
+import { CircularProgress } from '@mui/material';
 
 import RestoreIcon from '@mui/icons-material/Restore';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -40,6 +41,7 @@ function Pesquisa() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [loading, setLoading] = useState(true);
 
   // FIM CONTROLE MODAL 
   // const [perguntas, setPerguntas] = useState<DadosAPI[]>([]);
@@ -144,6 +146,7 @@ function Pesquisa() {
         console.log(dadosDaResposta.data.resposta[0].perguntas);
 
         setDados(dadosDaResposta.data.resposta[0])
+        setLoading(false)
 
       })
       .catch(error => {
@@ -162,62 +165,27 @@ function Pesquisa() {
 
 
   return (
-    <>
-      <div>
+    <div> 
         <BarraNavegacao />
-      </div>
-
+     
+ {loading ? (
+        // Se loading for verdadeiro, exibe o indicador de carregamento
+<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+  <CircularProgress />
+</div>      ) : (
+       <div>
       <Typography variant="h5" gutterBottom className='p-4'>
-        <div className='p-6 flex items-center justify-center '>
-
-          {/* <div>
-      <h2>Perguntas da API</h2>
-      {perguntas.map((item, index) => (
-        <div key={index}>
-          <h3>Categoria: {item.categoria}</h3>
-          <ul>
-            {item.perguntas.map((pergunta, perguntaIndex) => (
-              <li key={perguntaIndex}>
-                {pergunta.pergunta} - Opções: {pergunta.opcoes.join(', ')}
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div> */}
-
-
+        <div className='p-1 flex items-center justify-center '>
 
         </div>
       </Typography>
-      {/* 
-      <div>
-        <h2>Perguntas e Opções</h2>
-        <ul>
-          {dados && dados.perguntas && dados.perguntas.map((pergunta, index) => (
-            <li key={index}>
-              <strong>{pergunta.pergunta}</strong>
-              {pergunta.opcoes.length > 0 ? (
-                <ul>
-                  {pergunta.opcoes.map((opcao, opcaoIndex) => (
-                    <li key={opcaoIndex}>{opcao}</li>
-                  ))}
-                </ul>
-              ) : (
-                <p>Sem opções disponíveis.</p>
-              )}
-            </li>
-          ))}
-        </ul>
-      </div> */}
-
-
+  
       <form onSubmit={handleSubmit} className='p-10 '>
 
         {dados && dados.perguntas && dados.perguntas.map((pergunta, index) => (
           <div key={index}>
             <FormLabel id="demo-controlled-radio-buttons-group" className='flex justify-left'>
-              {pergunta.pergunta}
+             { index+1} - {pergunta.pergunta}
             </FormLabel>
 
             {pergunta.opcoes.length > 0 ? (
@@ -240,6 +208,7 @@ function Pesquisa() {
             ) : (
               <TextField
 
+              
                 fullWidth
                 margin="normal"
                 value={selecoes[index] || ''}
@@ -247,6 +216,9 @@ function Pesquisa() {
 
               />
             )}
+         <Divider style={{ borderColor: '#orange', marginBottom: '20px' }} >
+                
+      </Divider>
           </div>
         ))}
 
@@ -271,9 +243,11 @@ function Pesquisa() {
           </Typography>
         </Box>
       </Modal>
+       
+      </div>
 
-    </>
-  )
+)}
+</div>
+);
 }
-
 export default Pesquisa

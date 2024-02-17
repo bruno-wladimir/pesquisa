@@ -2,7 +2,7 @@ import * as React from 'react';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { Alert, Backdrop, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fade, FormControl, FormLabel, IconButton, InputLabel, List, ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, Rating, Select, Stack, TextField } from '@mui/material';
+import { Alert, Backdrop, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fade, FormControl, FormLabel, Grid, IconButton, InputLabel, List, ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, Rating, Select, Stack, TextField } from '@mui/material';
 import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -12,8 +12,10 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { styled } from '@mui/material/styles';
 import { PermCameraMic } from '@mui/icons-material';
 import axios from 'axios';
-import { auth } from "../../services/firebaseConfig";
+import { auth} from "../../services/firebaseConfig";
 import config from '../../config';
+import 'firebase/storage';
+import { getStorage, ref, uploadBytes ,getDownloadURL} from "firebase/storage";
 
 const URLAPI = config.apiUrl
 const style = {
@@ -27,6 +29,7 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+const storage = getStorage();
 
 
 export default function Formulario_Config_Logista() {
@@ -44,6 +47,8 @@ export default function Formulario_Config_Logista() {
 
     setArquivo(localStorage.getItem("logo"))
 
+
+
   }, []);
 
   const [novoNome, setNovoNome] = useState('');
@@ -59,7 +64,8 @@ export default function Formulario_Config_Logista() {
   const [categoria, setCategoria] = useState('');
   const [cidade, setCidade] = useState('');
   const [telefone_loja, setTelLoja] = useState('');
-
+ const [image, setImage] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState('');
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -81,7 +87,8 @@ export default function Formulario_Config_Logista() {
       categoria,
       telefone_loja,
       vendedores,
-      email: localStorage.getItem("email")
+      email: localStorage.getItem("email"),
+      logo:localStorage.getItem("urlimage")
     };
     const dadosLojaJSON = JSON.stringify(dadosLoja);
     enviarFormulario(dadosLojaJSON);
@@ -117,6 +124,9 @@ export default function Formulario_Config_Logista() {
 
     }
   };
+
+
+
 
   //INICIO LISTA DE VENDEDORES 
 
@@ -165,6 +175,42 @@ export default function Formulario_Config_Logista() {
   }
 
 
+  const handleImageChange = (e) => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+      setBotaoVisivel(true)
+      setIsVisible(true);
+     // uploadImage(image)
+
+    }
+  };
+
+
+  async function getImageUrl() {
+    // Criando uma referência para a imagem desejada
+    const uid_fire  = localStorage.getItem( "id_fire");
+
+    if (!uid_fire) {
+      throw new Error('Caminho da imagem é nulo.');
+    }
+  
+    const imageRef = ref(storage, 'images/'+ uid_fire);
+
+    try {
+      // Obtendo a URL de download da imagem
+    
+      const url = await getDownloadURL(imageRef);
+
+      console.log('URL de download da imagem:', url);
+      setImage(url)
+      localStorage.setItem("urlimage",url)
+    
+    } catch (error) {
+      console.error('Erro ao buscar a imagem:', error);
+      throw error;
+    }
+  }
+
   const handleFileChange = (event) => {
 
     const fileInput = event.target;
@@ -179,8 +225,7 @@ export default function Formulario_Config_Logista() {
       reader.onload = (e) => {
         const result = e.target?.result;
         if (result) {
-          console.log(result)
-
+          //console.log(result)
           setArquivo(result.toString());
         }
       };
@@ -194,13 +239,14 @@ export default function Formulario_Config_Logista() {
 
 
   const handleVisualizarArquivo = () => {
-
+console.log("aquiiiii")
     setIsVisible(false);
-    if (arquivo) {
-      localStorage.setItem("logo", arquivo?.toString())
+    if (image) {
+      ///localStorage.setItem("logo", arquivo?.toString())
+      uploadImage(image)
 
       alert("Logo salva");
-      window.location.reload()
+      //window.location.reload()
     }
     // if (arquivo) {
     //   const reader = new FileReader();
@@ -212,7 +258,22 @@ export default function Formulario_Config_Logista() {
     //   console.log('Nenhum arquivo selecionado.');
     // }
   };
-
+  async function uploadImage(file) {
+    // Criando uma referência para o local onde a imagem será armazenada
+    var uid = localStorage.getItem("id_fire")
+    const storageRef = ref(storage, 'images/'+ uid); ///mudar depois para pegar no storage
+  
+    try {
+      // Fazendo o upload da imagem para o Firebase Storage
+      const snapshot = await uploadBytes(storageRef, file);
+      console.log('Upload bem-sucedido!', snapshot);
+      return snapshot;
+    } catch (error) {
+      console.error('Erro ao fazer upload da imagem:', error);
+      throw error;
+    }
+  }
+  
 
   //funcoes API
 
@@ -265,14 +326,18 @@ export default function Formulario_Config_Logista() {
         console.error('Erro ao enviar para a API:', error);
       });
 
+      getImageUrl();
+
   }
 
 
   return (
     <>
       <BarraNavegacao />
-
-      <form onSubmit={handleSubmit} className='p-10 '>
+      <div className="flex justify-center items-center h-200 p-4">
+      {image && <img src={image} className="max-w-50 max-h-50" alt="Uploaded Image" />}
+</div>
+   <form onSubmit={handleSubmit} className='p-10 '>
 
 
         <FormControl fullWidth sx={{ my: 2 }}>
@@ -327,7 +392,7 @@ export default function Formulario_Config_Logista() {
           <br></br>
 
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <input type="file" onChange={handleFileChange} />
+            <input type="file" onChange={handleImageChange} />
 
             <Button style={{ display: isBotaoVisivel ? 'block' : 'none' }} component="label" onClick={handleVisualizarArquivo} >
               Enviar
@@ -426,10 +491,18 @@ export default function Formulario_Config_Logista() {
 
 
       })}
-
-<Button variant="contained" onClick={handleOpen} endIcon={<AddIcon />}>
+       
+<Grid container justifyContent="flex-start">
+{/* <Button style={{ marginLeft: '16px' }}  variant="contained" onClick={handleOpen} endIcon={<AddIcon />}>
         Adicionar vendedor
-      </Button>
+      </Button> */}
+      <IconButton onClick={handleOpen}>
+        <AddIcon />
+        Adicionar vendedor
+      </IconButton>
+      </Grid>
+
+<button onClick={getImageUrl}>Pegar imagem  </button>
       {/* FIM LISTA VENDEDORES */}
 
 

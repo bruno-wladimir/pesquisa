@@ -179,12 +179,13 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
             }}
           >
             <div className='w-1/2 h-auto'> 
-          <img src='/public/logo.png'></img>
+          <img src='https://firebasestorage.googleapis.com/v0/b/pesquisa-ec906.appspot.com/o/logo_nova.png?alt=media&token=f18fd556-3dca-4684-9c21-bf2595ebb5bb'></img>
           </div>
           </Box>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
+          {localStorage.getItem('on') !== '0' && (
+            <IconButton 
               size="large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
@@ -194,6 +195,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
             >
               <MenuIcon />
             </IconButton>
+  )}
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -216,6 +218,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
             </Menu>
           </Box>
           <Box
+
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -227,13 +230,17 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
               textDecoration: 'none',
             }}
           >
+            
              <div className='w-1/2 h-auto'> 
-          <img src='/public/logo.png'></img>
+          <img src='https://firebasestorage.googleapis.com/v0/b/pesquisa-ec906.appspot.com/o/logo_nova.png?alt=media&token=f18fd556-3dca-4684-9c21-bf2595ebb5bb'></img>
           </div>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          {localStorage.getItem('on') !== '0' && (
           <Menu_item/>
+          )}
           </Box>
+          {localStorage.getItem('on') !== '0' && (
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
@@ -241,6 +248,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
                 <Avatar alt="Remy Sharp" src={arquivo?.toString()}sx={{ width: 50, height: 50 }} />
               </IconButton>
             </Tooltip>
+
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -257,15 +265,19 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
+
                <MenuItem key="" onClick={logout}>
                 Sair
+              
               {/* <Link to={'/user-inicio'} > 
                   <Typography textAlign="center">Inicio-USR</Typography>
                   </Link> */}
                 </MenuItem>
               
             </Menu>
+            
           </Box>
+            )}
         </Toolbar>
       </Container>
     </AppBar>

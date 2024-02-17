@@ -22,8 +22,8 @@ export default function Login() {
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [vendedores, setVendedores] = useState([])
-  const [carregando, setCarregando] = useState(false);
+
+  const [loading, setLoading] = useState(false);
 
 
 
@@ -34,7 +34,6 @@ export default function Login() {
       <Navigate to="/" />
       console.log("Signed out successfully")
       localStorage.setItem("on", "0");
-
     }).catch((error) => {
       // An error happened.
     });
@@ -43,11 +42,14 @@ export default function Login() {
   }
   function handleSignIn(e) {
     e.preventDefault();
+    setLoading(true);
+
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         //const user = userCredential.user;
         console.log("logado");
         const userEmail = userCredential.user.email;
+        const uid = userCredential.user.uid;
 
           if (userEmail !==null){
             localStorage.setItem("email",userEmail)
@@ -55,11 +57,14 @@ export default function Login() {
           }
         
         localStorage.setItem("on", "1");
+         localStorage.setItem("id_fire", uid)
+
         getdadosloja();
 
 
         setTimeout(() => {
           // Redirecionar para outra página após 10 segundos
+          setLoading(false);
 
           history('/lojista-enviopesquisa');
         }, 3000); // 10000 milissegundos = 10 segundos
@@ -105,10 +110,16 @@ export default function Login() {
 
   
   return (
-
     
-    <ThemeProvider theme={theme}>
+<div> 
 
+{loading ? (
+        // Se loading for verdadeiro, exibe o indicador de carregamento
+<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+  <CircularProgress />
+</div>      ) : (
+
+    <ThemeProvider theme={theme}>
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="max-w-md w-full p-4">
 
@@ -168,8 +179,9 @@ export default function Login() {
         </div>
       </div>
     </ThemeProvider>
+)}
 
-
+</div>
         );
   
 }
