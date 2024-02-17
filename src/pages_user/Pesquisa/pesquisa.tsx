@@ -91,11 +91,11 @@ function Pesquisa() {
 
 
   const handleSubmit = async (event) => { // AQUI MANDA OS DADOS PARA API E SALVA NO DB .
-    const history = useNavigate();
 
     event.preventDefault();
     // Aqui você pode lidar com os dados do formulário, como enviá-los para um servidor
     // console.log('Dados do formulário:', { nome, idade, cidade ,sexo,atendimentovendedor,organizacaoloja});
+
     try {
       const dadosParaEnviar = {
         respostas: dados.perguntas.map((pergunta, index) => ({
@@ -117,6 +117,7 @@ function Pesquisa() {
         alert("Pesquisa Enviada !")
         const urlAtual = location.pathname.split('/');
         const ultimaParte = urlAtual[urlAtual.length - 1];
+        const history = useNavigate();
 
         history('/user-inicio/:'+ultimaParte);
       }
