@@ -62,14 +62,14 @@ export default function CardComponent(a:any) {
         component="img"
         height="51"
         
-        image="https://m.media-amazon.com/images/I/81naSwftdZL._AC_UF894,1000_QL80_.jpg"
+        image="https://firebasestorage.googleapis.com/v0/b/pesquisa-ec906.appspot.com/o/mopspray.png?alt=media&token=2488a3d9-c8b4-4c32-9946-343b50e31f88"
         alt="Paella dish"
 
          
       />
       <CardContent>
         <Typography variant="body1" color="text.secondary">
-          Air Frayer - Fritadeira Sem óleo
+          Mop Spray - Rodo Mágico
         </Typography>
       </CardContent>
       {/* <CardActions disableSpacing>

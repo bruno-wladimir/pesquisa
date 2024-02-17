@@ -69,7 +69,7 @@ Você Já Votou !
       </div>
     ) : (
       <>
-        <div className='p-6 flex items-center justify-center flex-col'>
+        {/* <div className='p-6 flex items-center justify-center flex-col'>
         
 
         <Card sx={{ maxWidth: 345  }} >
@@ -94,9 +94,9 @@ Você Já Votou !
           </div>
           <div className='p-6 flex items-center justify-center flex-col'>
 
+       
+        </div> */}
         <CardComponent />
-        </div>
-
         <div className='p-10'>
           <Link to={'/user-pesquisa'} >
             <Button variant="contained">Quero Concorrer !</Button>
