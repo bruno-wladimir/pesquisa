@@ -96,7 +96,10 @@ Você Já Votou !
 
        
         </div> */}
-        <CardComponent />
+         <div className='p-6 flex items-center justify-center flex-col'>
+         <CardComponent />
+
+         </div>
         <div className='p-10'>
           <Link to={'/user-pesquisa'} >
             <Button variant="contained">Quero Concorrer !</Button>
