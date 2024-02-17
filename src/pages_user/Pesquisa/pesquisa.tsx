@@ -41,7 +41,7 @@ function Pesquisa() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   // FIM CONTROLE MODAL 
   // const [perguntas, setPerguntas] = useState<DadosAPI[]>([]);
@@ -132,6 +132,7 @@ function Pesquisa() {
   // pegar perguntas no db 
 
   async function get_dados_lojista() {
+    setLoading(true)
 
     // Enviando para a API usando Axios
     const response = await axios.get(URLAPI + "/user/get_perguntas", {
