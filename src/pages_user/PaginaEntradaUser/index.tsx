@@ -25,6 +25,8 @@ function PaginaEntradaUser() {
 
   }, []);
 
+
+
   async function get_dados_lojista(ulr) {
 
     // Enviando para a API usando Axios

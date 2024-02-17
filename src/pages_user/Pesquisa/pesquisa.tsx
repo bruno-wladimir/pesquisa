@@ -19,7 +19,9 @@ function Pesquisa() {
 
   useEffect(() => {
 
-    get_dados_lojista();
+
+  get_dados_lojista();
+
 
   }, []);
 
@@ -83,6 +85,11 @@ function Pesquisa() {
   function setValue(newValue: number | null) {
     throw new Error('Function not implemented.')
   }
+
+
+
+
+
   const handleSubmit = async (event) => { // AQUI MANDA OS DADOS PARA API E SALVA NO DB .
     event.preventDefault();
     // Aqui você pode lidar com os dados do formulário, como enviá-los para um servidor
@@ -104,21 +111,20 @@ function Pesquisa() {
       console.log('Resposta da API:', resposta.data);
 
       if (resposta.data.message == "Resposta Salva") {
-        alert("Pesquisa Enviada !")
         setLoading(false)
+        alert("Pesquisa Enviada !")
+       
 
         window.location.reload();
       }
 
       if (resposta.data.message == "link ja usado") {
-        alert("Link Já Utilizado")
         setLoading(false)
+        alert("Link Já Utilizado")
+        
 
       }
-      else {
-
-
-      }
+     
 
     } catch (erro) {
       console.error('Erro ao enviar dados para a API:', erro);
@@ -132,7 +138,7 @@ function Pesquisa() {
   // pegar perguntas no db 
 
   async function get_dados_lojista() {
-    setLoading(true)
+        setLoading(true)
 
     // Enviando para a API usando Axios
     const response = await axios.get(URLAPI + "/user/get_perguntas", {
@@ -157,6 +163,8 @@ function Pesquisa() {
       })
       .catch(error => {
         console.error('Erro ao enviar para a API:', error);
+        setLoading(false)
+
       });
 
   }
