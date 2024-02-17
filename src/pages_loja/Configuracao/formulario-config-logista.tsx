@@ -502,7 +502,6 @@ console.log("aquiiiii")
       </IconButton>
       </Grid>
 
-<button onClick={getImageUrl}>Pegar imagem  </button>
       {/* FIM LISTA VENDEDORES */}
 
 

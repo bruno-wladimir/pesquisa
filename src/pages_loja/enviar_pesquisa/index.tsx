@@ -4,7 +4,7 @@ import BarraNavegacao from '../../components/barranavegacao'
 import '../../App.css'
 import React from 'react'
 import Menu_Logista from '../../components/menu_logista'
-import { Button, FormControl, FormLabel, InputLabel, MenuItem, Select, TextField } from '@mui/material'
+import { Box, Button, FormControl, FormLabel, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import axios from 'axios';
 import { CircularProgress } from '@mui/material';
 
@@ -91,7 +91,6 @@ export default function EnvioPesquisa() {
 
   return (
     <>
-
       <BarraNavegacao />
       <div className='p-6' >
       {loading ? (

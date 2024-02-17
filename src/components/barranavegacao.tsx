@@ -81,90 +81,10 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 }
     return(
       <>
-        {/* <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-        <Menu_item/>
+<Box sx={{ padding: '50px' }}>
 
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' },mr:1 }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-                         <Menu_item/>
-
-            </Menu>
-          </Box>
-          <div className='w-1/2 h-auto'> 
-          <img src='logo.png'></img>
-          </div>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-           
-            
-    
-
-          </Box>
-       
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              <Menu_item/>
-
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar> */}
-
-    
-<div className="w-full">
-
-<AppBar position="static">
-      <Container maxWidth="xl">
+<AppBar>
+      <Container maxWidth={false}>
         <Toolbar disableGutters>
           <Box
           
@@ -282,7 +202,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
       </Container>
     </AppBar>
 
-</div>
+</Box>
     </>
 
     );

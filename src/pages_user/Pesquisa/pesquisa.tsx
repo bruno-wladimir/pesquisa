@@ -16,6 +16,7 @@ import config from '../../config';
 const URLAPI = config.apiUrl
 
 function Pesquisa() {
+  const history = useNavigate();
 
   useEffect(() => {
 
@@ -39,6 +40,7 @@ function Pesquisa() {
     boxShadow: 24,
     p: 4,
   };
+  const [enviado, setEnviado] = useState(false);
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -117,9 +119,8 @@ function Pesquisa() {
         alert("Pesquisa Enviada !")
         const urlAtual = location.pathname.split('/');
         const ultimaParte = urlAtual[urlAtual.length - 1];
-        const history = useNavigate();
+        setEnviado(true);
 
-        history('/user-inicio/:'+ultimaParte);
       }
 
       if (resposta.data.message == "link ja usado") {
@@ -180,8 +181,11 @@ function Pesquisa() {
       return novasSelecoes;
     });
   };
-
-
+  if (enviado) {
+    const urlAtual = location.pathname.split('/');
+    const ultimaParte = urlAtual[urlAtual.length - 1];
+    history('/user-inicio/:'+ultimaParte);
+  }
   return (
     <div> 
         <BarraNavegacao />
