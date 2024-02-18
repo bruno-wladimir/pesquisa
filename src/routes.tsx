@@ -13,6 +13,8 @@ import Formulario_Config_Logista from "./pages_loja/Configuracao/formulario-conf
 import EnvioPesquisa from "./pages_loja/enviar_pesquisa";
 import Login from "./Login";
 import Register from "./Register";
+import Recuperacaosenha from "./Recuperacaosenha";
+
 import { getAuth, onAuthStateChanged, User } from "firebase/auth";
 import { auth} from './services/firebaseConfig';
 import { CheckRoute } from "./components/auth";
@@ -77,8 +79,9 @@ import { CheckRoute } from "./components/auth";
                 {/* <CheckRoute  admin={authenticated}><PaginaEntradaUser /></CheckRoute> */}
                 <Route path="/user-pesquisa/" element={<Pesquisa />}>  </Route>
                 <Route path="/login" element={<Login />}>  </Route>
-
+                
                 <Route path="/register" element={<Register />}>  </Route>
+                <Route path="/recuperacaosenha" element={<Recuperacaosenha />}>  </Route>
 
                 {/* Rotas loja */}
 

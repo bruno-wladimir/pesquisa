@@ -88,7 +88,7 @@ export default function Formulario_Config_Logista() {
       telefone_loja,
       vendedores,
       email: localStorage.getItem("email"),
-      logo:localStorage.getItem("urlimage")
+      logo:localStorage.getItem("logo")
     };
     const dadosLojaJSON = JSON.stringify(dadosLoja);
     enviarFormulario(dadosLojaJSON);
@@ -188,12 +188,16 @@ export default function Formulario_Config_Logista() {
 
   async function getImageUrl() {
     // Criando uma referência para a imagem desejada
+
+    const uid_image  = localStorage.getItem( "logo");
+    if (uid_image){
+setImage(uid_image)
+return;
+    }
+    else{
+
     const uid_fire  = localStorage.getItem( "id_fire");
 
-    if (!uid_fire) {
-      throw new Error('Caminho da imagem é nulo.');
-    }
-  
     const imageRef = ref(storage, 'images/'+ uid_fire);
 
     try {
@@ -203,14 +207,14 @@ export default function Formulario_Config_Logista() {
 
       console.log('URL de download da imagem:', url);
       setImage(url)
-      localStorage.setItem("urlimage",url)
+      localStorage.setItem("logo",url)
     
     } catch (error) {
       console.error('Erro ao buscar a imagem:', error);
       throw error;
     }
   }
-
+  }
   const handleFileChange = (event) => {
 
     const fileInput = event.target;
@@ -245,7 +249,7 @@ console.log("aquiiiii")
       ///localStorage.setItem("logo", arquivo?.toString())
       uploadImage(image)
 
-      alert("Logo salva");
+      alert("Salve as informações da Loja para salvar a logo !");
       //window.location.reload()
     }
     // if (arquivo) {
@@ -288,12 +292,12 @@ console.log("aquiiiii")
       }
     })
       .then(response => {
-        alert('Resposta da API:' + response.data);
+        alert('Dados Atualizados');
 
 
       })
       .catch(error => {
-        console.error('Erro ao enviar para a API:', error);
+        console.error('Erro ao salvar, tebte novamente');
       });
 
   }

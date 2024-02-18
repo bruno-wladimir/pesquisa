@@ -75,7 +75,12 @@ export default function Login() {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage)
-        alert("erro" + errorMessage);
+        if (errorCode == "auth/invalid-credential"){
+          alert("Senha inválida");
+          setLoading(false);
+
+        }
+
 
       });
 
@@ -96,11 +101,11 @@ export default function Login() {
       .then(response => {
         console.log('Resposta da API:', response.data.loja.vendedores);
     
-      
         localStorage.setItem("vendedores",JSON.stringify(response.data.loja.vendedores))
+        localStorage.setItem("logo",response.data.loja.logo)
+        // aqui eu pego o id da loja , e salvo no local storage , para toda vez que enviar um link validator eu enviar o link junto  
 
 
-        
       })
       .catch(error => {
         console.error('Erro ao enviar para a API:', error);
@@ -173,8 +178,10 @@ export default function Login() {
               </Button>
               </Link>
             </FormControl>
-            <a href="#">Esqueceu sua senha?</a><br></br>
-            <button onClick={logout}>Sair</button>
+            <Link to = "/recuperacaosenha"> 
+            <a> Esqueci Minha Senha</a>
+            </Link>
+            {/* <button onClick={logout}>Sair</button> */}
           </form>
         </div>
       </div>

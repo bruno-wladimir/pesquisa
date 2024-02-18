@@ -21,6 +21,7 @@ export default function Register() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const [error, setError] = useState(false);
 
 async function handleSignOut (e){
   e.preventDefault()
@@ -64,6 +65,11 @@ async function createLoja(email){
     });
   
 }
+const handleChange = (event) => {
+  const { value } = event.target;
+  setPassword(value);
+  setError(value.length < 6); // Define o erro como verdadeiro se a senha tiver menos de 6 caracteres
+};
 
 
   return (
@@ -98,8 +104,16 @@ async function createLoja(email){
               variant="outlined"
               fullWidth
               className="mt-3"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={handleChange}
+
+              // onChange={(e) => setPassword(e.target.value)}
+              inputProps={{
+                minLength: 6,
+              }}
+              error={error}
+              helperText={error ? 'A senha deve ter pelo menos 6 caracteres' : ''}
             />
+            
             </FormControl>
             <FormControl fullWidth sx={{ my: 2 }}> 
 
