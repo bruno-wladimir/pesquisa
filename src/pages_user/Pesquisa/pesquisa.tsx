@@ -90,9 +90,20 @@ function Pesquisa() {
 
 
 
-
+  const removerEmoticonsEspacos = (opcoes) => {
+    return opcoes.map(opcao => {
+      // Remover emoticons
+      const opcaoSemEmoticons = opcao.replace(/[\uD800-\uDFFF]/g, '');
+      // Remover espaços em branco
+      const opcaoSemEspacos = opcaoSemEmoticons.trim();
+      return opcaoSemEspacos;
+    });
+  };
 
   const handleSubmit = async (event) => { // AQUI MANDA OS DADOS PARA API E SALVA NO DB .
+
+const opcoesSemEmoticonsEspacos = removerEmoticonsEspacos(selecoes);
+
 
     event.preventDefault();
     // Aqui você pode lidar com os dados do formulário, como enviá-los para um servidor
@@ -102,14 +113,15 @@ function Pesquisa() {
       const dadosParaEnviar = {
         respostas: dados.perguntas.map((pergunta, index) => ({
           pergunta: pergunta.pergunta,
-          resposta: selecoes[index] || '', // Use o array de seleções
+          resposta: opcoesSemEmoticonsEspacos[index] || '', // Use o array de seleções
         })),
         link: localStorage.getItem("link")
       };
       console.log(dadosParaEnviar)
-      setLoading(true)
 
-      const resposta = await axios.post(URLAPI + '/user/salvar_resposta', dadosParaEnviar);
+      //setLoading(true)
+
+      const resposta = await axios.post(URLAPI + '/user/salvar_respost', dadosParaEnviar);
 
       // Lide com a resposta da API, se necessário
       console.log('Resposta da API:', resposta.data);
@@ -173,8 +185,21 @@ function Pesquisa() {
       });
 
   }
+  const removerEmoticons = (opcao) => {
+
+    const emoticonRegex = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
+    const espacoRegex = /\s/g;
+    const textoSemEmoticons = opcao.replace(emoticonRegex, '').replace(espacoRegex, '');
+    console.log(textoSemEmoticons)
+
+    return textoSemEmoticons;
+
+  };
+
 
   const handleSelecaoChange = (index: number, valor: string) => {
+    
+
     setSelecoes((prevSelecoes) => {
       const novasSelecoes = [...prevSelecoes];
       novasSelecoes[index] = valor;
