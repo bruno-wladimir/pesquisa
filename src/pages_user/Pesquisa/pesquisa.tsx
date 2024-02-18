@@ -119,9 +119,9 @@ const opcoesSemEmoticonsEspacos = removerEmoticonsEspacos(selecoes);
       };
       console.log(dadosParaEnviar)
 
-      //setLoading(true)
+      setLoading(true)
 
-      const resposta = await axios.post(URLAPI + '/user/salvar_respost', dadosParaEnviar);
+      const resposta = await axios.post(URLAPI + '/user/salvar_resposta', dadosParaEnviar);
 
       // Lide com a resposta da API, se necessário
       console.log('Resposta da API:', resposta.data);
