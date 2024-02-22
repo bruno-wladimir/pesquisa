@@ -24,9 +24,13 @@ export default function Login() {
   const [password, setPassword] = useState<string>("");
 
   const [loading, setLoading] = useState(false);
+  const [disableButton, setDisableButton] = useState(true);
 
 
-
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setDisableButton(e.target.value === ''); // Define o estado do botão com base no campo de e-mail
+  };
   function logout() {
 
     signOut(auth).then(() => {
@@ -144,7 +148,7 @@ export default function Login() {
                 variant="outlined"
                 fullWidth
                 className="mt-3"
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleEmailChange}
               />
             </FormControl>
             <FormControl fullWidth sx={{ my: 2 }}>
@@ -164,6 +168,7 @@ export default function Login() {
                 color="primary"
                 fullWidth
                 className="mt-4"
+                disabled={disableButton}
                 onClick={handleSignIn}
               >
                 Entrar

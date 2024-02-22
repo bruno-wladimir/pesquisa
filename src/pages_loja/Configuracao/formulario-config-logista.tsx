@@ -2,7 +2,7 @@ import * as React from 'react';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { Alert, Backdrop, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fade, FormControl, FormLabel, Grid, IconButton, InputLabel, List, ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, Rating, Select, Stack, TextField } from '@mui/material';
+import { Alert, Backdrop, Button, Checkbox, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Fade, FormControl, FormLabel, Grid, IconButton, InputLabel, List, ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem, Rating, Select, Stack, TextField, TextareaAutosize } from '@mui/material';
 import { useEffect, useState } from 'react'
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -70,9 +70,7 @@ export default function Formulario_Config_Logista() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-
-
+  const cidades = ["João Monlevade", "", ""]; // Seu array de cidades
 
   const [openmodal, setOpenconfirm] = React.useState(false);
 
@@ -362,12 +360,21 @@ console.log("aquiiiii")
           />
         </FormControl>
         <FormControl fullWidth sx={{ my: 2 }}>
-          <TextField
-            label="Cidade"
-            variant="outlined"
-            value={cidade}
-            onChange={(e) => setCidade(e.target.value)}
-          />
+        <InputLabel id="cidade-label">Cidade</InputLabel>
+
+        <Select
+        label="Cidade"
+        labelId="cidade-label"
+        value={cidade}
+        onChange={(e) => setCidade(e.target.value)}
+      >
+        {cidades.map((cidade, index) => (
+          <MenuItem key={index} value={cidade}>
+            {cidade}
+          </MenuItem>
+        ))}
+      </Select>
+
         </FormControl>
         <FormControl fullWidth sx={{ my: 2 }}>
           <InputLabel>Categoria</InputLabel>
@@ -393,6 +400,9 @@ console.log("aquiiiii")
             })}
 
           </Select>
+    
+
+     
 
           <br></br>
 
