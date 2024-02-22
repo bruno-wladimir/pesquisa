@@ -129,7 +129,7 @@ export default function Login() {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
 
         <div className="max-w-md w-full p-4">
-        <img src='../public/logo_black.png' className="max-w-30 max-h-30"/> 
+        <img src='logo_black.png' className="max-w-30 max-h-30"/> 
 
           <div className="text-center">
 
