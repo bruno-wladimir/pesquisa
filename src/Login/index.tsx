@@ -125,10 +125,14 @@ export default function Login() {
 </div>      ) : (
 
     <ThemeProvider theme={theme}>
+    
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
+
         <div className="max-w-md w-full p-4">
+        <img src='../public/logo_black.png' className="max-w-30 max-h-30"/> 
 
           <div className="text-center">
+
             <h2 className="text-3xl font-extrabold text-gray-900">Login</h2>
 
           </div>

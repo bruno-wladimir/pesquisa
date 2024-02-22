@@ -41,6 +41,7 @@ export default function Menu_Logista() {
   // const [perguntas_media,setRespostas] = useState<{ pergunta: string; total: number; quantidade: number; }[]>([]);
   const [perguntasRespostasAgrupadas, setPerguntasRespostasAgrupadas] = useState({});
   const [perguntas_media, setRespostas] = useState<{ pergunta: string; media: string }[]>([]);
+  const [quantidade_respostas, setQtdrespostas] = useState(0);
 
 
   useEffect(() => {
@@ -75,8 +76,9 @@ export default function Menu_Logista() {
 
         //calculateAverages(response.data.response)
         console.log(response.data.response)
-
         ///const valoresAgrupados = group(response.data.response);
+        setQtdrespostas(response.data.response.length)
+        
         group(response.data.response)
 
 
@@ -233,6 +235,8 @@ console.log("function group")
         ))}
 
       </div> */}
+<div >
+</div><span className="text-lg font-bold text-blue-600">Você possui <span className="text-green-600">{ quantidade_respostas }</span> avaliações  { quantidade_respostas > 0 ? '🎉': '🕒'}</span>
 
       {perguntas_media.map((feedback: any, index) => (
 
@@ -247,7 +251,7 @@ console.log("function group")
           secondary={
             <React.Fragment>
               <Typography
-                sx={{ display: 'inline',color:'green',fontSize: '1.2rem', textAlign: 'center' }}
+                sx={{ display: 'inline',color:'#2c5282',fontSize: '1.2rem', textAlign: 'center' }}
                 component="span"
                 variant="body2"
                 color="text.primary"

@@ -47,19 +47,19 @@ export default function menuitem() {
 
                 <MenuItem key="/lojista-enviopesquisa" onClick={handleCloseNavMenu}>
                 <Link to={'/lojista-enviopesquisa'} > 
-                  <Typography textAlign="center">Envio Pesquisa</Typography>
+                  <Typography textAlign="center" color="#000000">Envio Pesquisa</Typography>
                   </Link>
                 </MenuItem>
 
             
                 <MenuItem key="/lojista-dash" onClick={handleCloseNavMenu}>
                 <Link to={'/lojista-dash'} > 
-                  <Typography textAlign="center">Relatório</Typography>
+                  <Typography textAlign="center" color="#000000">Relatório</Typography>
                   </Link>
                 </MenuItem>
                 <MenuItem key="/lojista-configuracao" onClick={handleCloseNavMenu}>
                 <Link to={'/lojista-configuracao'} > 
-                  <Typography textAlign="center">Configurações</Typography>
+                  <Typography textAlign="center" color="#000000">Configurações</Typography>
                   </Link>
                 </MenuItem>
                 

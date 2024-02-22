@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import * as React from 'react';
 import { Link, Navigate } from 'react-router-dom';
-
+import LogoutIcon from '@mui/icons-material/Logout';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -18,6 +18,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import Menu_item from './menuitem';
 import { signOut } from 'firebase/auth';
 import { auth } from '../services/firebaseConfig';
+import { styled } from '@mui/material';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -77,13 +78,17 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
     // An error happened.
     });
 
-
 }
+
+const StyledAppBar = styled(AppBar)({
+  backgroundColor: '#ffffff', // Altere para a cor desejada
+});
+
     return(
       <>
 <Box sx={{ padding: '50px' }}>
 
-<AppBar>
+<StyledAppBar>
       <Container maxWidth={false}>
         <Toolbar disableGutters>
           <Box
@@ -99,7 +104,9 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
             }}
           >
             <div className='w-1/2 h-auto'> 
-          <img src='https://firebasestorage.googleapis.com/v0/b/pesquisa-ec906.appspot.com/o/logo_nova.png?alt=media&token=f18fd556-3dca-4684-9c21-bf2595ebb5bb'></img>
+            <a href="/">
+          <img src='../public/logo_black.png'></img>
+         </a>
           </div>
           </Box>
 
@@ -111,7 +118,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="inherit"
+              color="primary"
             >
               <MenuIcon />
             </IconButton>
@@ -152,7 +159,10 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
           >
             
              <div className='w-1/2 h-auto'> 
-          <img src='https://firebasestorage.googleapis.com/v0/b/pesquisa-ec906.appspot.com/o/logo_nova.png?alt=media&token=f18fd556-3dca-4684-9c21-bf2595ebb5bb'></img>
+             <a href="/">
+
+          <img  src='../public/logo_black.png'></img>
+         </a>
           </div>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -162,45 +172,47 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
           </Box>
           {localStorage.getItem('on') !== '0' && (
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src={arquivo?.toString()}sx={{ width: 50, height: 50 }} />
-              </IconButton>
-            </Tooltip>
+<Box sx={{ flexGrow: 0 }}>
 
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
+<Tooltip title="Open settings">
+  <IconButton  onClick={logout} sx={{ p: 0 }}>
+    {/* <Avatar alt="Remy Sharp" src={arquivo?.toString()}sx={{ width: 50, height: 50 }} /> */}
+    <LogoutIcon > </LogoutIcon>
+  </IconButton>
+  
+</Tooltip>
+<span className="text-gray-500 text-sm">Sair</span> 
+{/* <Menu
+  sx={{ mt: '45px' }}
+  id="menu-appbar"
+  anchorEl={anchorElUser}
+  anchorOrigin={{
+    vertical: 'top',
+    horizontal: 'right',
+  }}
+  keepMounted
+  transformOrigin={{
+    vertical: 'top',
+    horizontal: 'right',
+  }}
+  open={Boolean(anchorElUser)}
+  onClose={handleCloseUserMenu}
+>
 
-               <MenuItem key="" onClick={logout}>
-                Sair
-              
-              {/* <Link to={'/user-inicio'} > 
-                  <Typography textAlign="center">Inicio-USR</Typography>
-                  </Link> */}
-                </MenuItem>
-              
-            </Menu>
-            
-          </Box>
+   <MenuItem key="" onClick={logout}>
+    Sair
+
+    </MenuItem>
+  
+</Menu> */}
+{/* <img  src='https://firebasestorage.googleapis.com/v0/b/pesquisa-ec906.appspot.com/o/logo_black.png?alt=media&token=42dbda3a-8214-4367-abd4-e1a09bb733c3'></img> */}
+
+</Box>
+
             )}
         </Toolbar>
       </Container>
-    </AppBar>
+    </StyledAppBar>
 
 </Box>
     </>

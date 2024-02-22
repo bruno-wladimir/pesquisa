@@ -78,7 +78,9 @@ export default function Formulario_Config_Logista() {
 
 
   const handleSubmit = (event) => { // AQUI MANDA OS DADOS PARA API E SALVA NO DB .
-
+const logo = localStorage.getItem("logo")
+const email =  localStorage.getItem("email")
+console.log( )
     event.preventDefault();
     // Aqui você pode lidar com os dados do formulário, como enviá-los para um servidor
     const dadosLoja = {
@@ -87,8 +89,8 @@ export default function Formulario_Config_Logista() {
       categoria,
       telefone_loja,
       vendedores,
-      email: localStorage.getItem("email"),
-      logo:localStorage.getItem("logo")
+      email:email,
+      logo:logo
     };
     const dadosLojaJSON = JSON.stringify(dadosLoja);
     enviarFormulario(dadosLojaJSON);
@@ -190,7 +192,7 @@ export default function Formulario_Config_Logista() {
     // Criando uma referência para a imagem desejada
 
     const uid_image  = localStorage.getItem( "logo");
-    if (uid_image){
+    if (uid_image!="null"){
 setImage(uid_image)
 return;
     }
@@ -206,8 +208,8 @@ return;
       const url = await getDownloadURL(imageRef);
 
       console.log('URL de download da imagem:', url);
-      setImage(url)
       localStorage.setItem("logo",url)
+      setImage(url)
     
     } catch (error) {
       console.error('Erro ao buscar a imagem:', error);
@@ -245,13 +247,12 @@ return;
   const handleVisualizarArquivo = () => {
 console.log("aquiiiii")
     setIsVisible(false);
-    if (image) {
+  
       ///localStorage.setItem("logo", arquivo?.toString())
       uploadImage(image)
-
       alert("Salve as informações da Loja para salvar a logo !");
       //window.location.reload()
-    }
+   
     // if (arquivo) {
     //   const reader = new FileReader();
     //   reader.onload = (event) => {
@@ -294,7 +295,7 @@ console.log("aquiiiii")
       .then(response => {
         alert('Dados Atualizados');
 
-
+        window.location.reload();
       })
       .catch(error => {
         console.error('Erro ao salvar, tebte novamente');
@@ -410,7 +411,7 @@ console.log("aquiiiii")
     </div> */}
             {arquivo && isVisible && (
               <div>
-                <img src={arquivo} className="w-500 h-500" alt="Uploaded Image" />
+                {/* <img src={arquivo} className="w-500 h-500" alt="Uploaded Image" /> */}
               </div>
             )}
           </div>
