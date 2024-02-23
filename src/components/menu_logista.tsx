@@ -7,7 +7,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
 import { Link } from 'react-router-dom';
-import { Avatar, Divider, List, ListItem, ListItemAvatar, ListItemText, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, } from '@mui/material';
+import { Avatar, Card, CardContent, Divider, List, ListItem, ListItemAvatar, ListItemText, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, } from '@mui/material';
 import { minHeight, } from '@mui/system';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -243,11 +243,21 @@ console.log("function group")
 
       </div> */}
 <div >
-</div><span className="text-lg font-bold text-blue-600">Você possui <span className="text-green-600">{ quantidade_respostas }</span> avaliações  { quantidade_respostas > 0 ? '🎉': '🕒'}</span> <br></br>
+</div>
+<Card sx={{ textAlign: 'center' }}>
+    <CardContent>
+<span className="text-lg font-bold text-blue-600">Você possui <span className="text-green-600">{ quantidade_respostas }</span> avaliações  { quantidade_respostas > 0 ? '🎉': '🕒'}</span> <br></br>
 <span className="text-lg font-bold text-blue-600"><span className="text-green-600">{ qtd_aguardando }</span> Mensagens Aguardando envio 🕒 </span> <br></br>
 
-<span className="text-lg font-bold text-blue-600"><span className="text-green-600">{ qtd_envio }</span> Mensagens enviadas </span>
+<span className="text-lg font-bold text-blue-600"><span className="text-green-600">{ qtd_envio }</span> Mensagens enviadas 📤 </span> <br></br>
 
+<span className="text-lg font-bold text-blue-600">Taxa de Abertura <span className="text-green-600">   { quantidade_respostas /qtd_envio *100}  </span> % 📊</span>
+</CardContent>
+</Card>
+<Typography className='p-4'>
+Avaliações: 
+
+</Typography>
 
       {perguntas_media.map((feedback: any, index) => (
 
