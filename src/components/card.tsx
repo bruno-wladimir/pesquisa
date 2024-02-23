@@ -16,7 +16,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Padding } from '@mui/icons-material';
 import '../../src/App.css'
-const imageUrl = 'https://exemplo.com/minha-imagem.jpg'; // Substitua pela sua URL real
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -52,8 +51,8 @@ export default function CardComponent(a:any) {
       <CardHeader
        
 
-        title="Prêmio do mês"
-        subheader="Sorteio dia 4/02/2023"
+        title="Sua Opinião é Importante"
+        subheader=""
       />
       <CardMedia 
        sx={{
@@ -62,15 +61,18 @@ export default function CardComponent(a:any) {
         component="img"
         height="51"
         
-        image="https://firebasestorage.googleapis.com/v0/b/pesquisa-ec906.appspot.com/o/mopspray.png?alt=media&token=2488a3d9-c8b4-4c32-9946-343b50e31f88"
+        image="https://firebasestorage.googleapis.com/v0/b/pesquisa-ec906.appspot.com/o/opinion_01.jpeg?alt=media&token=5b8d4917-cbca-4097-bfc1-8694e8625371"
         alt="Paella dish"
 
          
       />
       <CardContent>
         <Typography variant="body1" color="text.secondary">
-          Mop Spray - Rodo Mágico
+          Conte o que achou da sua experiência! <br></br>
+          <u>Sua resposta é anônima. Fique à vontade para ser sincero. </u>
+         
         </Typography>
+        🕒 leva apenas 30 segundos !🤗 
       </CardContent>
       {/* <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">

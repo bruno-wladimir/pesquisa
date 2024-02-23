@@ -42,6 +42,8 @@ export default function Menu_Logista() {
   const [perguntasRespostasAgrupadas, setPerguntasRespostasAgrupadas] = useState({});
   const [perguntas_media, setRespostas] = useState<{ pergunta: string; media: string }[]>([]);
   const [quantidade_respostas, setQtdrespostas] = useState(0);
+  const [qtd_aguardando, setqtd_aguardando] = useState(0);
+  const [qtd_envio,   setTotalenvio ] = useState(0);
 
 
   useEffect(() => {
@@ -75,9 +77,14 @@ export default function Menu_Logista() {
       .then(response => {
 
         //calculateAverages(response.data.response)
-        console.log(response.data.response)
+        console.log(response)
+       // console.log(response.data.aguardando_envio.length)
+        setqtd_aguardando(response.data.aguardando_envio.length)
         ///const valoresAgrupados = group(response.data.response);
         setQtdrespostas(response.data.response.length)
+        
+        setTotalenvio(response.data.qtd_envio)
+
         
         group(response.data.response)
 
@@ -236,7 +243,11 @@ console.log("function group")
 
       </div> */}
 <div >
-</div><span className="text-lg font-bold text-blue-600">Você possui <span className="text-green-600">{ quantidade_respostas }</span> avaliações  { quantidade_respostas > 0 ? '🎉': '🕒'}</span>
+</div><span className="text-lg font-bold text-blue-600">Você possui <span className="text-green-600">{ quantidade_respostas }</span> avaliações  { quantidade_respostas > 0 ? '🎉': '🕒'}</span> <br></br>
+<span className="text-lg font-bold text-blue-600"><span className="text-green-600">{ qtd_aguardando }</span> Mensagens Aguardando envio 🕒 </span> <br></br>
+
+<span className="text-lg font-bold text-blue-600"><span className="text-green-600">{ qtd_envio }</span> Mensagens enviadas </span>
+
 
       {perguntas_media.map((feedback: any, index) => (
 

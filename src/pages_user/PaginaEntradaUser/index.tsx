@@ -11,7 +11,6 @@ import { Card, CardActionArea, CardContent, CardMedia, Typography } from '@mui/m
 const URLAPI = config.apiUrl
 function PaginaEntradaUser() {
 
-  const [count, setCount] = useState(206)
   const [condicao, setCondicao] = useState(true)
   const location = useLocation();
 
@@ -24,7 +23,6 @@ function PaginaEntradaUser() {
     
 
   }, []);
-
 
 
   async function get_dados_lojista(ulr) {
@@ -63,7 +61,12 @@ function PaginaEntradaUser() {
     <>
     <div>
       <BarraNavegacao />
+
     </div>
+    <div className="flex justify-center items-center h-200 p-4">
+    <img src="../logo_black.png" className="max-w-50 max-h-50" alt="Uploaded Image" />
+  
+</div>
     {!condicao ? (
   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
         
@@ -104,7 +107,7 @@ Você Já Votou !
          </div>
         <div className='p-10'>
           <Link to={'/user-pesquisa'} >
-            <Button variant="contained">Quero Concorrer !</Button>
+            <Button variant="contained">Clique Para Iniciar </Button>
           </Link>
         </div>
       </>

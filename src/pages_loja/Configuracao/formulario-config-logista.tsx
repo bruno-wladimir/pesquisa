@@ -70,7 +70,7 @@ export default function Formulario_Config_Logista() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const cidades = ["João Monlevade", "", ""]; // Seu array de cidades
+  const cidades = ["João Monlevade"]; // Seu array de cidades
 
   const [openmodal, setOpenconfirm] = React.useState(false);
 
@@ -348,6 +348,7 @@ console.log("aquiiiii")
             label="Nome da Loja"
             variant="outlined"
             value={nome_loja}
+            required
             onChange={(e) => setNomeLoja(e.target.value)}
           />
         </FormControl>
@@ -356,6 +357,7 @@ console.log("aquiiiii")
             label="Telefone Responsável"
             variant="outlined"
             value={telefone_loja}
+            required
             onChange={(e) => setTelLoja(e.target.value)}
           />
         </FormControl>
@@ -366,6 +368,7 @@ console.log("aquiiiii")
         label="Cidade"
         labelId="cidade-label"
         value={cidade}
+        required
         onChange={(e) => setCidade(e.target.value)}
       >
         {cidades.map((cidade, index) => (

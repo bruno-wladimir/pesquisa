@@ -105,7 +105,7 @@ const StyledAppBar = styled(AppBar)({
           >
             <div className='w-1/2 h-auto'> 
             <a href="/">
-          <img src='logo_black.png'></img>
+          <img src='../logo_black.png'></img>
          </a>
           </div>
           </Box>
@@ -160,8 +160,7 @@ const StyledAppBar = styled(AppBar)({
             
              <div className='w-1/2 h-auto'> 
              <a href="/">
-
-          <img  src='logo_black.png'></img>
+        <img  src='../logo_black.png'></img>
          </a>
           </div>
           </Box>
