@@ -162,7 +162,9 @@ export default function EnvioPesquisa() {
               error={!!error}
               variant="outlined"
               helperText={error}
-
+              InputProps={{
+                inputMode: 'tel', // Define o modo de entrada para telefone
+            }}
               value={telefone_cliente}
               onChange={(e) => validartelefone(e)}
             />
