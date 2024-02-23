@@ -63,10 +63,7 @@ function PaginaEntradaUser() {
       <BarraNavegacao />
 
     </div>
-    <div className="flex justify-center items-center h-200 p-4">
-    <img src="../logo_black.png" className="max-w-50 max-h-50" alt="Uploaded Image" />
-  
-</div>
+ 
     {!condicao ? (
   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
         
