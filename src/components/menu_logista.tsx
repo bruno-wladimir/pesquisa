@@ -251,7 +251,7 @@ console.log("function group")
 
 <span className="text-lg font-bold text-blue-600"><span className="text-green-600">{ qtd_envio }</span> Mensagens enviadas 📤 </span> <br></br>
 
-<span className="text-lg font-bold text-blue-600">Taxa de Abertura <span className="text-green-600">   { quantidade_respostas /qtd_envio *100}  </span> % 📊</span>
+<span className="text-lg font-bold text-blue-600">Taxa de Abertura <span className="text-green-600">   { (quantidade_respostas /qtd_envio *100).toFixed(0) }  </span> % 📊</span>
 </CardContent>
 </Card>
 <Typography className='p-4'>
