@@ -112,11 +112,11 @@ const opcoesSemEmoticonsEspacos = removerEmoticonsEspacos(selecoes);
     try {
       const dadosParaEnviar = {
         respostas: dados.perguntas.map((pergunta, index) => ({
-          vendedor:localStorage.getItem("vendedor"),
           pergunta: pergunta.pergunta,
           resposta: opcoesSemEmoticonsEspacos[index] || '', // Use o array de seleções
         })),
-        link: localStorage.getItem("link")
+        link: localStorage.getItem("link"),
+        vendedor:localStorage.getItem("vendedor"),
       };
       console.log(dadosParaEnviar)
 
