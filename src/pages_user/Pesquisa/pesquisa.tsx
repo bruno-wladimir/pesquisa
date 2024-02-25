@@ -171,10 +171,12 @@ const opcoesSemEmoticonsEspacos = removerEmoticonsEspacos(selecoes);
       .then(response => {
 
         const dadosDaResposta = response;
-
+        console.log("dadosDaResposta");
         console.log(dadosDaResposta.data.resposta[0].perguntas);
 
         setDados(dadosDaResposta.data.resposta[0])
+        localStorage.setItem("vendedor",response.data.vendedor)
+
         setLoading(false)
 
       })
