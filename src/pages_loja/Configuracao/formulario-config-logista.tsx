@@ -57,7 +57,7 @@ export default function Formulario_Config_Logista() {
   const rootRef = React.useRef<HTMLDivElement>(null);
 
   //const [category, setcategory] = useState(['lojaDeRoupas', 'lojaDeCalcados', 'restaurante', 'lojaDeAcessorios']);
-  const [category, setcategory] = useState(['Loja Física', 'Loja Online']);
+  const [category, setcategory] = useState(['Loja Física', 'Loja Online', 'Bares e Pubs', 'Restaurante','Salões de Beleza e Barbearias']);
   const [vendedores, setVendedores] = useState([''])
 
   const [nome_loja, setNomeLoja] = useState('');
