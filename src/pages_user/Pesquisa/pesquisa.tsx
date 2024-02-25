@@ -133,6 +133,7 @@ const opcoesSemEmoticonsEspacos = removerEmoticonsEspacos(selecoes);
         const urlAtual = location.pathname.split('/');
         const ultimaParte = urlAtual[urlAtual.length - 1];
         setEnviado(true);
+        localStorage.clear();
 
       }
 
