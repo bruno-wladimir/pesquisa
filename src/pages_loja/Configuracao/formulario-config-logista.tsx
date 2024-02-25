@@ -354,6 +354,14 @@ console.log("aquiiiii")
         </FormControl>
         <FormControl fullWidth sx={{ my: 2 }}>
           <TextField
+            label="Email"
+            variant="outlined"
+            value={localStorage.getItem("email")}
+            disabled
+          />
+        </FormControl>
+        <FormControl fullWidth sx={{ my: 2 }}>
+          <TextField
             label="Telefone Responsável"
             variant="outlined"
             value={telefone_loja}
