@@ -23,6 +23,7 @@ export default function EnvioPesquisa() {
   const [telefone_cliente, setTelCliente] = useState('');
   const [vendedor, setVendedor] = useState('');
   const [vendedores, setVendedores] = useState([]);
+  const [disableButton, setDisableButton] = useState(true);
 
   const [loja, setIdLoja] = useState(localStorage.getItem("id"))
 
@@ -78,6 +79,7 @@ export default function EnvioPesquisa() {
     // Atualizar o estado com o número formatado
     // Validar o número de telefone
     setTelCliente(formattedValue);
+    setDisableButton(value === ''); // Define o estado do botão com base no campo de e-mail
 
     console.log(formattedValue)
 
@@ -106,6 +108,7 @@ export default function EnvioPesquisa() {
   const isValidPhoneNumber = (setTelCliente) => {
     return /^\(\d{2}\)\s?\d{5}-\d{4}$/.test(setTelCliente);
   };
+
 
   function clear() {
     setCliente('');
@@ -199,7 +202,9 @@ export default function EnvioPesquisa() {
 
 
           </FormControl>
-          <Button type="submit">Enviar</Button>
+          <Button 
+           disabled={disableButton}
+          type="submit">Enviar</Button>
 
         </form>
 
