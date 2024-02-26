@@ -56,8 +56,7 @@ async function createLoja(email){
    }
    await axios.post(URLAPI + '/loja/criarloja', email_send)
     .then(response => {
-      alert('Resposta da API:' + response.data);
-
+    alert('Resposta da API:' + "Loja Configurada!");
 
     })
     .catch(error => {

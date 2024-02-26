@@ -190,7 +190,7 @@ console.log( )
     // Criando uma referência para a imagem desejada
 
     const uid_image  = localStorage.getItem( "logo");
-    if (uid_image!="null"){
+    if (uid_image!="undefined"){
 setImage(uid_image)
 return;
     }
@@ -357,7 +357,8 @@ console.log("aquiiiii")
             label="Email"
             variant="outlined"
             value={localStorage.getItem("email")}
-            disabled
+            required
+            onChange={(e) => setNomeLoja(e.target.value)}
           />
         </FormControl>
         <FormControl fullWidth sx={{ my: 2 }}>
