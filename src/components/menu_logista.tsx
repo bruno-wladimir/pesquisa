@@ -135,13 +135,13 @@ console.log("function group")
           // Se já estiver presente, atualiza os valores
          let converter = converterRespostaParaValor(valorResposta)
 
-          if (valorResposta =="Sim" ||valorResposta =="Não" ){
+          if (valorResposta =="S" ||valorResposta =="N" ){
 
             mediaRespostasPorPergunta[perguntaIndex].tipo = 2 ;
 
             mediaRespostasPorPergunta[perguntaIndex].quantidade++ // quentidade de pessoas que votou 
 
-            if (valorResposta =="Sim"){
+            if (valorResposta =="S"){
               mediaRespostasPorPergunta[perguntaIndex].total += 1; 
 
             }
@@ -176,21 +176,21 @@ console.log("function group")
   }
   function converterRespostaParaValor(resposta) {
     switch (resposta) {
-      case "Excelente":
+      case "R1":
         return 5;
-      case "Bom":
+      case "R2":
         return 4;
-        case "Regular":
+        case "R3":
           return 3;
-          case "Ruim":
+          case "R4":
           return 2;
-          case "Péssimo":
+          case "R5":
           return 1;
           case "Sem comentários":
             return 0
-      case "Sim":
+      case "S":
         return 1;
-        case "Não":
+        case "N":
           return 0;
 
       default:

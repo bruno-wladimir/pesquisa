@@ -255,22 +255,7 @@ const opcoesSemEmoticonsEspacos = removerEmoticonsEspacos(selecoes);
                     key={opcaoIndex}
                     value={opcao}
                     control={<Radio />}
-                    label={
-                      opcao === "R1"
-                        ? "Excelente 😃"
-                        : opcao === "R2"
-                        ? "Bom 🙂"
-                        : opcao === "R3"
-                        ? "Regular 😐"
-                        : opcao === "R4"
-                        ? "Ruim ☹️"
-                        : opcao === "S"
-                        ? "Sim 😃"
-                        : opcao === "N"
-                        ? "Não 😐"
-                        : opcao // Se não for nenhum desses, mantém o valor original
-                    }
-                    
+                    label={opcao}
                   />
                 ))}
               </RadioGroup>
