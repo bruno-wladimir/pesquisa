@@ -135,9 +135,9 @@ export default function EnvioPesquisa() {
       <BarraNavegacao />
       
       <div className='p-6' >
-      <div className="flex justify-center items-center h-200 p-4">
+      {/* <div className="flex justify-center items-center h-200 p-4">
       {image && <img src={image} className="max-w-50 max-h-50" alt="Uploaded Image" />}
-</div>
+</div> */}
 
 
       {loading ? (

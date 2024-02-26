@@ -337,9 +337,9 @@ console.log("aquiiiii")
   return (
     <>
       <BarraNavegacao />
-      <div className="flex justify-center items-center h-200 p-4">
+      {/* <div className="flex justify-center items-center h-200 p-4">
       {image && <img src={image} className="max-w-50 max-h-50" alt="Uploaded Image" />}
-</div>
+</div> */}
    <form onSubmit={handleSubmit} className='p-10 '>
 
 
@@ -418,7 +418,7 @@ console.log("aquiiiii")
 
           <br></br>
 
-          <div style={{ display: 'flex', alignItems: 'center' }}>
+          {/* <div style={{ display: 'flex', alignItems: 'center' }}>
             <input type="file" onChange={handleImageChange} />
 
             <Button style={{ display: isBotaoVisivel ? 'block' : 'none' }} component="label" onClick={handleVisualizarArquivo} >
@@ -427,16 +427,12 @@ console.log("aquiiiii")
 
           </div>
           <div id="imageContainer" className="w-1/5 h-auto">
-            {/* <div>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleVisualizarArquivo}>Visualizar Arquivo</button>
-    </div> */}
+     
             {arquivo && isVisible && (
               <div>
-                {/* <img src={arquivo} className="w-500 h-500" alt="Uploaded Image" /> */}
               </div>
             )}
-          </div>
+          </div> */}
           <Stack direction="row" spacing={2}>
 
           </Stack>
