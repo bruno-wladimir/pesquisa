@@ -19,6 +19,7 @@ function Pesquisa() {
   const history = useNavigate();
 
   useEffect(() => {
+    console.log("Iniciando")
 
 
   get_dados_lojista();
@@ -101,13 +102,14 @@ function Pesquisa() {
   };
 
   const handleSubmit = async (event) => { // AQUI MANDA OS DADOS PARA API E SALVA NO DB .
+    setLoading(true)
+    console.log("vou salvar")
+    event.preventDefault();
 
 const opcoesSemEmoticonsEspacos = removerEmoticonsEspacos(selecoes);
-
-
-    event.preventDefault();
     // Aqui você pode lidar com os dados do formulário, como enviá-los para um servidor
     // console.log('Dados do formulário:', { nome, idade, cidade ,sexo,atendimentovendedor,organizacaoloja});
+    console.log("entrando no tray")
 
     try {
       const dadosParaEnviar = {
@@ -118,9 +120,10 @@ const opcoesSemEmoticonsEspacos = removerEmoticonsEspacos(selecoes);
         link: localStorage.getItem("link"),
         vendedor:localStorage.getItem("vendedor"),
       };
-      console.log(dadosParaEnviar)
+      console.log("dados para enviar ",dadosParaEnviar)
+      console.log("Definir load ")
 
-      setLoading(true)
+  
 
       const resposta = await axios.post(URLAPI + '/user/salvar_resposta', dadosParaEnviar);
 

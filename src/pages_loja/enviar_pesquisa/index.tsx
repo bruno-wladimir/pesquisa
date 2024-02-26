@@ -123,6 +123,8 @@ export default function EnvioPesquisa() {
       .then(response => {
         clear();
         alert(response.data.message)
+        setDisableButton(true); // Define o estado do botão com base no campo de e-mail
+
         setLoading(false);
 
       })
