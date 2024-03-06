@@ -7,13 +7,18 @@ import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
 import { Link } from 'react-router-dom';
-import { Avatar, Card, CardContent, Divider, List, ListItem, ListItemAvatar, ListItemText, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, } from '@mui/material';
+import { Avatar, Card, CardContent, Divider, List, ListItem, ListItemAvatar, ListItemText, ListSubheader, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, } from '@mui/material';
 import { minHeight, } from '@mui/system';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import config from '../config'
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import { PureComponent } from 'react';
+import { PieChart, Pie, Cell } from 'recharts';
+import { Bar } from 'react-chartjs-2';
+
 const URLAPI = config.apiUrl
+const perguntas_abertas = []  as { pergunta_aberta: string; resposta_aberta: string }[];
 
 
 const actions = [
@@ -110,11 +115,31 @@ console.log("function group")
       // Iterando sobre as respostas de cada questionário
       questionario.respostas.forEach(questionario => {
         const { pergunta, resposta: valorResposta } = questionario;
-          
+        const { pergunta_aberta, resposta_aberta: resposta_aberta} = questionario;
+
         // Verifica se a pergunta já está presente no array
-
+       
         const perguntaIndex = mediaRespostasPorPergunta.findIndex(item => item.pergunta === pergunta);
+        const pergunta_abertaIndex = perguntas_abertas.findIndex(item => item.pergunta_aberta === pergunta_aberta);
 
+
+// if (pergunta_abertaIndex ===-1){
+//   perguntas_abertas.push({ pergunta_aberta,resposta_aberta:resposta_aberta  });
+//   console.log(perguntas_abertas)
+
+// }
+// else{
+//   perguntas_abertas[pergunta_abertaIndex].resposta_aberta +=resposta_aberta ;
+//   console.log(perguntas_abertas)
+
+// }
+        if (pergunta_aberta){
+          perguntas_abertas.push({ pergunta_aberta, resposta_aberta :resposta_aberta });
+
+        }
+      
+
+        
         if (perguntaIndex === -1) {
           // Se não estiver presente, adiciona a pergunta ao array
           console.log("pergunta nao esta no array")
@@ -225,23 +250,12 @@ console.log("function group")
 
   // }
 
+
+
   return (
     <>
-      {/* <div>
 
-        {perguntas_media.map((feedback: any, index) => (
-          <div key={index}>
-            <h3>{ index +1} -  {feedback.pergunta}</h3>
-            <ul>
-              <li key={index}>
-                <strong>{ feedback.media ==0 ? `${`Sem Informações`}` : feedback.media >5 ? `${feedback.media}%` :  `${feedback.media} de 5` } </strong>
-              </li>
 
-            </ul>
-          </div>
-        ))}
-
-      </div> */}
 <div >
 </div>
 <Card sx={{ textAlign: 'center' }}>
@@ -264,7 +278,6 @@ Avaliações:
       <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
       <ListItem alignItems="flex-start">
         <ListItemAvatar>
-          {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" /> */}
           <QuestionAnswerIcon></QuestionAnswerIcon>
         </ListItemAvatar>
         <ListItemText
@@ -277,7 +290,9 @@ Avaliações:
                 variant="body2"
                 color="text.primary"
               >
-                <strong>{ feedback.media ==0 ? `${`Sem Informações`}` : feedback.media >5 ? `${feedback.media} % votou Sim` :  `${feedback.media} / 5` } </strong>
+                {/* <strong>{ feedback.media ==0 ? `${`Sem Informações`}` : feedback.media >5 ? `${feedback.media} % votou Sim` :  `${feedback.media} de 5` } </strong> */}
+                <strong>{ feedback.media ==0 ? `${`Sem Informações`}` : feedback.media >5 ? `${feedback.media} % votou Sim` :  `${feedback.media} de 5` } </strong>
+
               </Typography>
             </React.Fragment>
             
@@ -293,12 +308,40 @@ Avaliações:
 
 
 
+{perguntas_abertas.length > 0 ? (
+  <>
+  <div className='p-10'>Sujestões: </div> 
 
+  <List
+      sx={{
+        width: '100%',
+        maxWidth: 360,
+        bgcolor: 'background.paper',
+        position: 'relative',
+        overflow: 'auto',
+        maxHeight: 300,
+        margin: '0 auto', // Centraliza horizontalmente
 
+        '& ul': { padding: 0 },
+      }}
+    >
+{ perguntas_abertas.map((sectionId: any, index) => (
 
+<li key={`section-${sectionId}`}>
+<ul>
+  <ListSubheader>Pergunta {index+1 } - {sectionId.pergunta_aberta}</ListSubheader>
+  <ListSubheader><strong>  Resposta:{sectionId.resposta_aberta}</strong></ListSubheader>
 
-
-
+  
+  
+</ul>
+</li>
+))}
+</List>
+</>
+) :(
+<div>Não há Sujestões</div>
+)}
     </>
   );
-}
+};
