@@ -28,7 +28,7 @@ function Pesquisa() {
   }, []);
 
 
-  //INICIO CONTROLE MODAL 
+  //INICIO CONTROLE MODAL
 
   const style = {
     position: 'absolute' as 'absolute',
@@ -48,7 +48,7 @@ function Pesquisa() {
   const handleClose = () => setOpen(false);
   const [loading, setLoading] = useState(false);
 
-  // FIM CONTROLE MODAL 
+  // FIM CONTROLE MODAL
   // const [perguntas, setPerguntas] = useState<DadosAPI[]>([]);
 
 
@@ -123,7 +123,7 @@ const opcoesSemEmoticonsEspacos = removerEmoticonsEspacos(selecoes);
       console.log("dados para enviar ",dadosParaEnviar)
       console.log("Definir load ")
 
-  
+
 
       const resposta = await axios.post(URLAPI + '/user/salvar_resposta', dadosParaEnviar);
 
@@ -143,10 +143,10 @@ const opcoesSemEmoticonsEspacos = removerEmoticonsEspacos(selecoes);
       if (resposta.data.message == "link ja usado") {
         setLoading(false)
         alert("Link Já Utilizado")
-        
+
 
       }
-     
+
 
     } catch (erro) {
       console.error('Erro ao enviar dados para a API:', erro);
@@ -157,7 +157,7 @@ const opcoesSemEmoticonsEspacos = removerEmoticonsEspacos(selecoes);
 
   };
 
-  // pegar perguntas no db 
+  // pegar perguntas no db
 
   async function get_dados_lojista() {
         setLoading(true)
@@ -205,7 +205,7 @@ const opcoesSemEmoticonsEspacos = removerEmoticonsEspacos(selecoes);
 
 
   const handleSelecaoChange = (index: number, valor: string) => {
-    
+
 
     setSelecoes((prevSelecoes) => {
       const novasSelecoes = [...prevSelecoes];
@@ -219,9 +219,9 @@ const opcoesSemEmoticonsEspacos = removerEmoticonsEspacos(selecoes);
     history('/user-inicio/:'+ultimaParte);
   }
   return (
-    <div> 
+    <div>
         <BarraNavegacao />
-     
+
  {loading ? (
         // Se loading for verdadeiro, exibe o indicador de carregamento
 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -233,13 +233,13 @@ const opcoesSemEmoticonsEspacos = removerEmoticonsEspacos(selecoes);
 
         </div>
       </Typography>
-  
+
       <form onSubmit={handleSubmit} className='p-10 '>
 
         {dados && dados.perguntas && dados.perguntas.map((pergunta, index) => (
           <div key={index}>
             <FormLabel id="demo-controlled-radio-buttons-group" className='flex justify-left'>
-             { index+1} - {pergunta.pergunta}
+             { index+1} - {pergunta.pergunta} {pergunta.pergunta_aberta} 
             </FormLabel>
 
             {pergunta.opcoes.length > 0 ? (
@@ -270,23 +270,31 @@ const opcoesSemEmoticonsEspacos = removerEmoticonsEspacos(selecoes);
                         ? "Não 😐"
                         : opcao // Se não for nenhum desses, mantém o valor original
                     }
-                    
+
                   />
                 ))}
               </RadioGroup>
-            ) : (
+            ) :
+
+            (
+
+           <div>
+         
+
               <TextField
 
-              
+
                 fullWidth
                 margin="normal"
                 value={selecoes[index] || ''}
                 onChange={(e) => handleSelecaoChange(index, e.target.value)}
 
               />
-            )}
+           </div>
+
+            ) }
          <Divider style={{ borderColor: '#orange', marginBottom: '20px' }} >
-                
+
       </Divider>
           </div>
         ))}
@@ -312,7 +320,7 @@ const opcoesSemEmoticonsEspacos = removerEmoticonsEspacos(selecoes);
           </Typography>
         </Box>
       </Modal>
-       
+
       </div>
 
 )}
