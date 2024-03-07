@@ -53,6 +53,7 @@ function Pesquisa() {
 
 
   const [selecoes, setSelecoes] = useState<string[]>([]);
+  const [respostaAberta, setrespostaAbertas] =useState('');
 
   const [dados, setDados] = useState({
 
@@ -94,10 +95,13 @@ function Pesquisa() {
   const removerEmoticonsEspacos = (opcoes) => {
     return opcoes.map(opcao => {
       // Remover emoticons
+      console.log(opcao)
+      if(opcao){
       const opcaoSemEmoticons = opcao.replace(/[\uD800-\uDFFF]/g, '');
       // Remover espaços em branco
       const opcaoSemEspacos = opcaoSemEmoticons.trim();
       return opcaoSemEspacos;
+    }
     });
   };
 
@@ -116,6 +120,8 @@ const opcoesSemEmoticonsEspacos = removerEmoticonsEspacos(selecoes);
         respostas: dados.perguntas.map((pergunta, index) => ({
           pergunta: pergunta.pergunta,
           resposta: opcoesSemEmoticonsEspacos[index] || '', // Use o array de seleções
+          pergunta_aberta: pergunta.pergunta_aberta,
+          resposta_aberta: respostaAberta, // Use o array de seleções
         })),
         link: localStorage.getItem("link"),
         vendedor:localStorage.getItem("vendedor"),
@@ -286,9 +292,9 @@ const opcoesSemEmoticonsEspacos = removerEmoticonsEspacos(selecoes);
 
                 fullWidth
                 margin="normal"
-                value={selecoes[index] || ''}
-                onChange={(e) => handleSelecaoChange(index, e.target.value)}
-
+                value={respostaAberta}
+               // onChange={(e) => handleSelecaoChange(index, e.target.value)}
+            onChange={(e) => setrespostaAbertas(e.target.value)} 
               />
            </div>
 
