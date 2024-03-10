@@ -7,7 +7,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
 import { Link } from 'react-router-dom';
-import { Avatar, Card, CardContent, Divider, List, ListItem, ListItemAvatar, ListItemText, ListSubheader, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, } from '@mui/material';
+import { Avatar, Card, CardContent, Divider, List, ListItem, ListItemAvatar, ListItemText, ListSubheader, Paper, Rating, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, } from '@mui/material';
 import { minHeight, } from '@mui/system';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -16,7 +16,11 @@ import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import { PureComponent } from 'react';
 import { PieChart, Pie, Cell } from 'recharts';
 import { Bar } from 'react-chartjs-2';
-
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
+import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
+import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
 const URLAPI = config.apiUrl
 const perguntas_abertas = []  as { pergunta_aberta: string; resposta_aberta: string }[];
 
@@ -45,12 +49,58 @@ export default function Menu_Logista() {
 
   // const [perguntas_media,setRespostas] = useState<{ pergunta: string; total: number; quantidade: number; }[]>([]);
   const [perguntasRespostasAgrupadas, setPerguntasRespostasAgrupadas] = useState({});
-  const [perguntas_media, setRespostas] = useState<{ pergunta: string; media: string }[]>([]);
+  const [perguntas_media, setRespostas] = useState<{ pergunta: string; media: number ; tipo: number}[]>([]);
   const [quantidade_respostas, setQtdrespostas] = useState(0);
   const [qtd_aguardando, setqtd_aguardando] = useState(0);
   const [qtd_envio,   setTotalenvio ] = useState(0);
 
+  const customIcons = {
+   
+    1: {
+      icon: <SentimentVeryDissatisfiedIcon />,
+      label: 'Very Dissatisfied',
+    },
+    2: {
+      icon: <SentimentDissatisfiedIcon />,
+      label: 'Dissatisfied',
+    },
+    3: {
+      icon: <SentimentSatisfiedIcon />,
+      label: 'Neutral',
+    },
+    4: {
+      icon: <SentimentSatisfiedAltIcon />,
+      label: 'Satisfied',
+    },
+    5: {
+      icon: <SentimentVerySatisfiedIcon />,
+      label: 'Very Satisfied',
+    },
+  };
+  const customIconsYesOrNot = {
+    0: {
+      icon: <SentimentVeryDissatisfiedIcon />,
+      label: 'Very Dissatisfied',
+    },
+  
+    1: {
+      icon: <SentimentVerySatisfiedIcon />,
+      label: 'Very Satisfied',
+    },
+  };
 
+
+  function IconContainer(props) {
+    const { value, ...other } = props;
+    return <span {...other}>{customIcons[value].icon}</span>;
+  }
+
+  function IconContainerYerOrNot(props) {
+    const { value, ...other } = props;
+    return <span {...other}>{customIconsYesOrNot[value].icon}</span>;
+  }
+  
+  
   useEffect(() => {
 
 
@@ -180,6 +230,8 @@ console.log("function group")
 
           mediaRespostasPorPergunta[perguntaIndex].total += converterRespostaParaValor(valorResposta);
           mediaRespostasPorPergunta[perguntaIndex].quantidade++;
+          mediaRespostasPorPergunta[perguntaIndex].tipo = 1;
+
           }
           //setRespostas(mediaRespostasPorPergunta)
         }
@@ -192,8 +244,10 @@ console.log("function group")
       pergunta: item.pergunta,
      
       // media: (item.total / item.quantidade).toFixed(1)
-            media: (item.tipo ===2)? ( (item.total/item.quantidade)*100 ).toFixed(1).toString(): (item.total/item.quantidade).toFixed(1)
+            // media: (item.tipo ===2)? ( (item.total/item.quantidade)*100 ).toFixed(1).toString(): (item.total/item.quantidade).toFixed(1)
+            media: (item.tipo ===2)? ( (item.total/item.quantidade)*100 ): (item.total/item.quantidade),
 
+            tipo: item.tipo
     }));
     setRespostas(perguntasMedia)
     console.log(perguntas_media);
@@ -273,7 +327,7 @@ Avaliações:
 
 </Typography>
 
-      {perguntas_media.map((feedback: any, index) => (
+      {perguntas_media.map(( feedback: any, index) => (
 
       <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
       <ListItem alignItems="flex-start">
@@ -291,8 +345,22 @@ Avaliações:
                 color="text.primary"
               >
                 {/* <strong>{ feedback.media ==0 ? `${`Sem Informações`}` : feedback.media >5 ? `${feedback.media} % votou Sim` :  `${feedback.media} de 5` } </strong> */}
-                <strong>{ feedback.media ==0 ? `${`Sem Informações`}` : feedback.media >5 ? `${feedback.media} % votou Sim` :  `${feedback.media} de 5` } </strong>
+                {/* <strong>{ feedback.media ==0 ? `${`Sem Informações`}` : feedback.media >5 ? `${feedback.media} % votou Sim` :  `${feedback.media} de 5` } </strong> */}
+               
+                {feedback.media !== undefined && feedback.tipo ==1 &&(
+  <Rating
+    name="customized-icons"
+    defaultValue={feedback.media}
+    //getLabelText={(value) => customIcons[value].label}
+    IconContainerComponent={IconContainer}
+    readOnly
+    
+  />
+)}
+       {feedback.media !== undefined && feedback.tipo === 2 && (
+                <strong>{ feedback.media ==0 ? `${`Sem Informações`}` : feedback.media >5 ? `${feedback.media.toFixed(1)} % votou Sim` :  `${feedback.media} de 5` } </strong>
 
+)}         
               </Typography>
             </React.Fragment>
             
